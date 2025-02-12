@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "814788884826",
+    "project_id": "apppedidos-dfc77",
+    "storage_bucket": "apppedidos-dfc77.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814788884826:android:f019af0f95596ba7599b63",
+        "android_client_info": {
+          "package_name": "com.example.apppedidosandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "814788884826-lbqrmpeqgaup49j95938arfbn9ah18ud.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.apppedidosandroid",
+            "certificate_hash": "7af5b2830e596641ed14b35c8eda1845c37f7dd9"
+          }
+        },
+        {
+          "client_id": "814788884826-dkj6lnclmech8pkrd4g0ujkgc68kfclv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvHKL83QWB5Jr2ezQtMgEE1o7jC4bonRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "814788884826-dkj6lnclmech8pkrd4g0ujkgc68kfclv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
