@@ -5,4 +5,5 @@
     <string name="email_hint">example@gmail.com</string>
     <string name="password">Password</string>
     <string name="password_hint">********</string>
+    <string name="or">or</string>
 </resources>
