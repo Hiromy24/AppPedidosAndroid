@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">AppPedidosAndroid</string>
+    <string name="prefs_file">com.example.apppedidosandroid.PREFERENCE_FILE_KEY</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="email_hint">example@gmail.com</string>
+    <string name="password">Password</string>
+    <string name="password_hint">********</string>
+    <string name="or">or</string>
+    <string name="register">Register</string>
     <string name="app_title">PlaceHolder</string>
     <string name="SearchIconDescription">Search for a product</string>
     <string name="CartIconDescription">Look the cart products</string>
