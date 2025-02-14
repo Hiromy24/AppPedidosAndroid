@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AppPedidosAndroid</string>
+    <string name="app_title">PlaceHolder</string>
+    <string name="SearchIconDescription">Search for a product</string>
+    <string name="CartIconDescription">Search for a product</string>
+    <string name="ProfileIconDescription">Open your profile</string>
+
 </resources>

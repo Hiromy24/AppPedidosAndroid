@@ -6,4 +6,6 @@
     <dimen name="h4">15sp</dimen>
     <dimen name="h5">12sp</dimen>
     <dimen name="h6">8sp</dimen>
+    <dimen name="p">14sp</dimen>
+    <dimen name="square_item_img">20dp</dimen>
 </resources>
