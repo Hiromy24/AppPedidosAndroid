@@ -1,13 +1,18 @@
 package com.example.apppedidosandroid;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,6 +27,9 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private ActivityResultLauncher<Intent> loginLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        loginLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Toast.makeText(this, "Login succeed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
         String[] items = {"Girasol", "Geranio","Amapola","Violeta","Rosa","Clavel","Flor de Sauco",
                 "Flor de lis","Lirio","Flor de loto","Gardenia","flor de las nieves","Margarita"};
 
@@ -92,7 +110,15 @@ public class MainActivity extends AppCompatActivity {
             // Acción para el botón de carrito
             return true;
         } else if (id == R.id.action_profile) {
-            // Acción para el botón de perfil
+            SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file),
+                    MODE_PRIVATE);
+            if (preferences.getString("email", null) != null) {
+                ProfileSheet profileSheet = new ProfileSheet();
+                profileSheet.show(getSupportFragmentManager(), "ProfileSheet");
+            } else {
+                Intent intent = new Intent(this, LoginActivity.class);
+                loginLauncher.launch(intent);
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);

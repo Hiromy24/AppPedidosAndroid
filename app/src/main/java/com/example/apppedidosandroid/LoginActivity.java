@@ -77,7 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                                                 editor.putString("provider", "GOOGLE");
                                                 editor.apply();
                                             }
-                                            Toast.makeText(this, "Google sign in successful", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent();
+                                            setResult(RESULT_OK, intent);
+                                            finish();
                                         } else {
                                             Toast.makeText(this, "Google sign in failed", Toast.LENGTH_SHORT).show();
                                         }
@@ -97,8 +99,9 @@ public class LoginActivity extends AppCompatActivity {
                                 (etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(this, "Completed registration",
-                                        Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent();
+                                setResult(RESULT_OK, intent);
+                                finish();
                             } else {
                                 Toast.makeText(this, "Error on registration",
                                         Toast.LENGTH_SHORT).show();
@@ -116,8 +119,9 @@ public class LoginActivity extends AppCompatActivity {
                                 (etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(this, "Completed login",
-                                        Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent();
+                                setResult(RESULT_OK, intent);
+                                finish();
                             } else {
                                 Toast.makeText(this, "No user or email login",
                                         Toast.LENGTH_SHORT).show();
