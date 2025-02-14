@@ -70,6 +70,13 @@ public class LoginActivity extends AppCompatActivity {
                                     .addOnCompleteListener(this, task1 -> {
                                         if (task1.isSuccessful()) {
                                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            if (user != null) {
+                                                SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = prefs.edit();
+                                                editor.putString("email", user.getEmail());
+                                                editor.putString("provider", "GOOGLE");
+                                                editor.apply();
+                                            }
                                             Toast.makeText(this, "Google sign in successful", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(this, "Google sign in failed", Toast.LENGTH_SHORT).show();
@@ -121,14 +128,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         googleSignInButton.setOnClickListener(v -> {
-            SharedPreferences prefs1 =
-                    getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
-            String email = prefs1.getString("email", null);
-            String provider1 = prefs1.getString("provider", null);
-
-            if (email != null && provider1 != null) {
-                Toast.makeText(this, "Already logged in", Toast.LENGTH_SHORT).show();
-            } else {
                 GoogleSignInOptions gso = new GoogleSignInOptions
                         .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestIdToken(getString(R.string.default_web_client_id))
@@ -139,8 +138,6 @@ public class LoginActivity extends AppCompatActivity {
                 googleSignInClient.signOut();
                 Intent signInIntent = googleSignInClient.getSignInIntent();
                 signInLauncher.launch(signInIntent);
-            }
-
         });
     }
 }
