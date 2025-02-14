@@ -10,51 +10,20 @@
     android:showDividers="middle"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_title"
+            app:titleTextAppearance="@style/ToolbarTitle"
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" >
+        </com.google.android.material.appbar.MaterialToolbar>
 
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/geist_black"
-            android:text="@string/app_title"
-            android:textSize="@dimen/h2" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:backgroundTint="#00FFFFFF"
-            android:contentDescription="@string/SearchIconDescription"
-            app:srcCompat="@drawable/magnifying_glass" />
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:backgroundTint="#00FFFFFF"
-            android:contentDescription="@string/CartIconDescription"
-            app:srcCompat="@drawable/cart_shopping" />
-
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:backgroundTint="#00000000"
-            android:contentDescription="@string/ProfileIconDescription"
-
-            app:srcCompat="?android:attr/textSelectHandleLeft" />
-    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
