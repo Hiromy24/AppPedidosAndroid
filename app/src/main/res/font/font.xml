@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font android:fontStyle="normal" android:font="@font/font_awesome_free_regular" />
+    <font android:fontStyle="normal" android:font="@font/font_awesome_free_solid_bold" />
+    <font android:fontStyle="normal" android:font="@font/font_awesome_brands_regular" />
+    <font android:fontStyle="normal" android:font="@font/geist_black" />
+    <font android:fontStyle="normal" android:font="@font/geist_bold" />
+    <font android:fontStyle="normal" android:font="@font/geist_extra_bold" />
+    <font android:fontStyle="normal" android:font="@font/geist_extra_light" />
+    <font android:fontStyle="normal" android:font="@font/geist_light" />
+    <font android:fontStyle="normal" android:font="@font/geist_medium" />
+    <font android:fontStyle="normal" android:font="@font/geist_regular" />
+    <font android:fontStyle="normal" android:font="@font/geist_semi_bold" />
+    <font android:fontStyle="normal" android:font="@font/geist_thin" />
+
+</font-family>
