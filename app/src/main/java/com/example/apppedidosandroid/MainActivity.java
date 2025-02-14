@@ -1,6 +1,11 @@
 package com.example.apppedidosandroid;
 
+import android.animation.ObjectAnimator;
+import android.media.Image;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apppedidosandroid.adapters.RectangularItemAdapter;
 import com.example.apppedidosandroid.adapters.SquareItemAdapter;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+        setSupportActionBar(topAppBar);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -66,5 +74,28 @@ public class MainActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration2 = new DividerItemDecoration(rv2.getContext(),
                 layoutManager2.getOrientation());
         rv2.addItemDecoration(dividerItemDecoration2);
+
+
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_app_bar, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+
+            return true;
+        } else if (id == R.id.action_cart) {
+            // Acción para el botón de carrito
+            return true;
+        } else if (id == R.id.action_profile) {
+            // Acción para el botón de perfil
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
