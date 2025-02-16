@@ -22,6 +22,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView rv, rv2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,22 +59,15 @@ public class MainActivity extends AppCompatActivity {
                 "Salchicha,Pan", "Carne, Pan",
                 "Queso, Masa", "Papas, Frito","Salchicha, Pan", "Carne, Pan"};
         double[] rating = {4.5, 4.8, 4.2, 4.0, 4.5, 4.8, 4.2, 4.0, 4.5, 4.8, 4.2, 4.0, 4.0};
+        linkComponents();
 
-        RecyclerView rv =findViewById(R.id.squareItemRecyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rv.setLayoutManager(layoutManager);
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rv.addItemDecoration(new DividerItemDecoration(rv.getContext(), DividerItemDecoration.HORIZONTAL));
         rv.setAdapter(new SquareItemAdapter(items, images));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rv.getContext(),
-                layoutManager.getOrientation());
-        rv.addItemDecoration(dividerItemDecoration);
 
-        RecyclerView rv2 =findViewById(R.id.rectangularItemRecyclerView);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rv2.setLayoutManager(layoutManager2);
+        rv2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rv2.addItemDecoration(new DividerItemDecoration(rv2.getContext(),DividerItemDecoration.VERTICAL));
         rv2.setAdapter(new RectangularItemAdapter(items, images, categories, rating));
-        DividerItemDecoration dividerItemDecoration2 = new DividerItemDecoration(rv2.getContext(),
-                layoutManager2.getOrientation());
-        rv2.addItemDecoration(dividerItemDecoration2);
 
 
     }
@@ -97,5 +91,12 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    void linkComponents(){
+        rv =findViewById(R.id.squareItemRecyclerView);
+        rv2 =findViewById(R.id.rectangularItemRecyclerView);
+    }
+
 
 }
