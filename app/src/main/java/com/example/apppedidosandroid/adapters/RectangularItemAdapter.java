@@ -1,3 +1,4 @@
+/*
 package com.example.apppedidosandroid.adapters;
 
 import android.view.LayoutInflater;
@@ -9,25 +10,29 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.apppedidosandroid.R;
+
+import java.util.List;
 
 public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItemAdapter.ViewHolder> {
 
-    private final String[] items;
-    private final String[] categories;
-    private final double[] rating;
-    private final int[] images;
+    private final List<String> items;
+    private final List<String> categories;
+    private final List<Double> ratings;
+    private final List<String> imageUrls;
 
-    public RectangularItemAdapter(String[] items, int[] images, String[] categories, double[] rating) {
+    public RectangularItemAdapter(List<String> items, List<String> imageUrls, List<String> categories, List<Double> ratings) {
         this.items = items;
-        this.images = images;
+        this.imageUrls = imageUrls;
         this.categories = categories;
-        this.rating = rating;
+        this.ratings = ratings;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textView, categoryTextView, ratingTextView;
         public ImageView imageView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.productImageView);
@@ -36,6 +41,7 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
             ratingTextView = itemView.findViewById(R.id.ratingTextView);
         }
     }
+
     @NonNull
     @Override
     public RectangularItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,14 +51,14 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
 
     @Override
     public void onBindViewHolder(@NonNull RectangularItemAdapter.ViewHolder holder, int position) {
-        holder.textView.setText(items[position]);
-        holder.imageView.setImageResource(images[position]);
-        holder.categoryTextView.setText(categories[position]);
-        holder.ratingTextView.setText(String.valueOf(rating[position]));
+        holder.textView.setText(items.get(position));
+        holder.categoryTextView.setText(categories.get(position));
+        holder.ratingTextView.setText(String.valueOf(ratings.get(position)));
+        Glide.with(holder.imageView.getContext()).load(imageUrls.get(position)).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return items.length;
+        return items.size();
     }
-}
+}*/

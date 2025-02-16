@@ -32,7 +32,11 @@ android {
 }
 
 dependencies {
-
+    implementation (libs.com.github.bumptech.glide.glide)
+    annotationProcessor (libs.compiler)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.squareup.logging.interceptor)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
