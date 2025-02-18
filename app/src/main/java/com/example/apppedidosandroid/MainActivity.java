@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Toast.makeText(this, "Login succeed", Toast.LENGTH_SHORT).show();
+                        showProfileSheet();
                     }
                 });
 
@@ -110,18 +111,22 @@ public class MainActivity extends AppCompatActivity {
             // Acción para el botón de carrito
             return true;
         } else if (id == R.id.action_profile) {
-            SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file),
-                    MODE_PRIVATE);
-            if (preferences.getString("email", null) != null) {
-                ProfileSheet profileSheet = new ProfileSheet();
-                profileSheet.show(getSupportFragmentManager(), "ProfileSheet");
-            } else {
-                Intent intent = new Intent(this, LoginActivity.class);
-                loginLauncher.launch(intent);
-            }
+            showProfileSheet();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showProfileSheet() {
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file),
+                MODE_PRIVATE);
+        if (preferences.getString("email", null) != null) {
+            ProfileSheet profileSheet = new ProfileSheet();
+            profileSheet.show(getSupportFragmentManager(), "ProfileSheet");
+        } else {
+            Intent intent = new Intent(this, LoginActivity.class);
+            loginLauncher.launch(intent);
+        }
     }
 
 }

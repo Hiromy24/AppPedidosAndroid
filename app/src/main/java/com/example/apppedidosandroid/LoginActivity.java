@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etPassword;
 
     com.google.android.gms.common.SignInButton googleSignInButton;
-    private ActivityResultLauncher<Intent> signInLauncher;
+    private ActivityResultLauncher<Intent> signInGoogleLauncher;
     private static final String TAG = "LoginActivity";
 
     @Override
@@ -56,8 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.pwdEditText);
         googleSignInButton = findViewById(R.id.sign_in_button);
 
-        // Register the launcher
-        signInLauncher = registerForActivityResult(
+        //region Launcher for Google Sign In
+        signInGoogleLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
@@ -74,7 +73,9 @@ public class LoginActivity extends AppCompatActivity {
                                                 SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
                                                 SharedPreferences.Editor editor = prefs.edit();
                                                 editor.putString("email", user.getEmail());
-                                                editor.putString("provider", "GOOGLE");
+                                                editor.putString("username", user.getDisplayName());
+                                                editor.putString("photoUrl",
+                                                        String.valueOf(user.getPhotoUrl()));
                                                 editor.apply();
                                             }
                                             Intent intent = new Intent();
@@ -90,15 +91,20 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
         );
+        //endregion
 
         btnRegister.setOnClickListener(v -> {
-            if (!etEmail.getText().toString().isEmpty() &&
+
+            /*if (!etEmail.getText().toString().isEmpty() &&
                     !etPassword.getText().toString().isEmpty()) {
                 FirebaseAuth.getInstance()
                         .createUserWithEmailAndPassword
                                 (etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
+
+
+
                                 Intent intent = new Intent();
                                 setResult(RESULT_OK, intent);
                                 finish();
@@ -108,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
 
-            }
+            }*/
         });
 
         btnLogin.setOnClickListener(k -> {
@@ -119,6 +125,13 @@ public class LoginActivity extends AppCompatActivity {
                                 (etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (user != null) {
+                                    SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = prefs.edit();
+                                    editor.putString("email", user.getEmail());
+                                    editor.apply();
+                                }
                                 Intent intent = new Intent();
                                 setResult(RESULT_OK, intent);
                                 finish();
@@ -141,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                         com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(this, gso);
                 googleSignInClient.signOut();
                 Intent signInIntent = googleSignInClient.getSignInIntent();
-                signInLauncher.launch(signInIntent);
+                signInGoogleLauncher.launch(signInIntent);
         });
     }
 }
