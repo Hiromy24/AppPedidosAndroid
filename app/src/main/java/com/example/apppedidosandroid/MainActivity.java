@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
     private void fetchRandomGames() {
         // Configurar Retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.41:5000") // Cambia esto a la URL de tu API
+                .baseUrl("http://10.34.122.67:5000") // Cambia esto a la URL de tu API
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Llamada a la API (aquí debes enviar el nombre de la app o dejarlo vacío para obtener juegos aleatorios)
-        Map<String, String> request = Map.of("app_name", "Henry"); // Puedes dejar vacío para buscar juegos aleatorios
+        Map<String, String> request = Map.of("app_name", ""); // Puedes dejar vacío para buscar juegos aleatorios
         Call<List<Game>> call = apiService.getRandomGames(request);
 
         // Ejecutar la llamada asíncrona
