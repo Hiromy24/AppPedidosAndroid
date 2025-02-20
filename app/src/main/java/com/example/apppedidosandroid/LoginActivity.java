@@ -74,8 +74,8 @@ public class LoginActivity extends AppCompatActivity {
                                                 SharedPreferences.Editor editor = prefs.edit();
                                                 editor.putString("email", user.getEmail());
                                                 editor.putString("username", user.getDisplayName());
-                                                editor.putString("photoUrl",
-                                                        String.valueOf(user.getPhotoUrl()));
+                                                editor.putString("photoUrl_" + user.getEmail(),
+                                                        account.getPhotoUrl().toString()).apply();
                                                 editor.apply();
                                             }
                                             Intent intent = new Intent();
