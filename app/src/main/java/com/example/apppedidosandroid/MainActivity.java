@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.apppedidosandroid.adapters.RectangularItemAdapter;
 import com.example.apppedidosandroid.adapters.SquareItemAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView rv;
+    private RecyclerView rv, rv2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         rv = findViewById(R.id.squareItemRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv.setLayoutManager(layoutManager);
+
+        rv2 = findViewById(R.id.rectangularItemRecyclerView);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv2.setLayoutManager(layoutManager2);
 
         fetchRandomGames(); // Llamar al método que obtiene los juegos
     }
@@ -43,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Llamada a la API (aquí debes enviar el nombre de la app o dejarlo vacío para obtener juegos aleatorios)
-        Map<String, String> request = Map.of("app_name", ""); // Puedes dejar vacío para buscar juegos aleatorios
+        Map<String, String> request = Map.of("app_name", "fruit ninja"); // Puedes dejar vacío para buscar juegos aleatorios
         Call<List<Game>> call = apiService.getRandomGames(request);
 
         // Ejecutar la llamada asíncrona
@@ -55,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("API_RESPONSE", "Games: " + games.toString());
                     SquareItemAdapter adapter = new SquareItemAdapter(games);
                     rv.setAdapter(adapter);
+                    RectangularItemAdapter adapter2 = new RectangularItemAdapter(games);
+                    rv2.setAdapter(adapter2);
                 } else {
                     Log.e("API_ERROR", "Response code: " + response.code());
                     Log.e("API_ERROR", "Response message: " + response.message());
