@@ -3,71 +3,226 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="5dp">
-
-    <ImageView
-        android:id="@+id/gameImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_weight="0"
-        app:srcCompat="@drawable/ic_launcher_background" />
-
-    <Space
-        android:layout_width="20dp"
-        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0"
-        android:orientation="vertical"
-        android:weightSum="9">
+        android:padding="5dp">
 
-        <TextView
-            android:id="@+id/gameNameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:fontFamily="@font/geist_semi_bold"
-            android:gravity="bottom"
-            android:text="Title"
-            android:textSize="@dimen/h4" />
+        <ImageView
+            android:id="@+id/gameImageView3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/ic_launcher_background" />
 
-        <TextView
-            android:id="@+id/gameCategoriesTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:fontFamily="@font/geist_regular"
-            android:gravity="center_vertical"
-            android:text="Categories"
-            android:textSize="@dimen/p" />
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:orientation="vertical"
+            android:weightSum="9">
 
             <TextView
-                android:id="@+id/ratingTextView"
+                android:id="@+id/gameNameTextView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/geist_semi_bold"
+                android:gravity="bottom"
+                android:text="Title"
+                android:textSize="@dimen/h4" />
+
+            <TextView
+                android:id="@+id/gameCategoriesTextView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:fontFamily="@font/geist_regular"
-                android:gravity="top"
-                android:text="5.2"
+                android:gravity="center_vertical"
+                android:text="Categories"
                 android:textSize="@dimen/p" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="@dimen/h5"
-                android:layout_height="@dimen/h5"
-                android:layout_marginStart="3dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="3"
-                app:srcCompat="@drawable/star_solid" />
-        </LinearLayout>
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/ratingTextView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:fontFamily="@font/geist_regular"
+                    android:gravity="top"
+                    android:text="5.2"
+                    android:textSize="@dimen/p" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="@dimen/h5"
+                    android:layout_height="@dimen/h5"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="3"
+                    app:srcCompat="@drawable/star_solid" />
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/gameImageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:orientation="vertical"
+            android:weightSum="9">
+
+            <TextView
+                android:id="@+id/gameNameTextView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/geist_semi_bold"
+                android:gravity="bottom"
+                android:text="Title"
+                android:textSize="@dimen/h4" />
+
+            <TextView
+                android:id="@+id/gameCategoriesTextView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/geist_regular"
+                android:gravity="center_vertical"
+                android:text="Categories"
+                android:textSize="@dimen/p" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ratingTextView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:fontFamily="@font/geist_regular"
+                    android:gravity="top"
+                    android:text="5.2"
+                    android:textSize="@dimen/p" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="@dimen/h5"
+                    android:layout_height="@dimen/h5"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="3"
+                    app:srcCompat="@drawable/star_solid" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/gameImageView1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:orientation="vertical"
+            android:weightSum="9">
+
+            <TextView
+                android:id="@+id/gameNameTextView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/geist_semi_bold"
+                android:gravity="bottom"
+                android:text="Title"
+                android:textSize="@dimen/h4" />
+
+            <TextView
+                android:id="@+id/gameCategoriesTextView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/geist_regular"
+                android:gravity="center_vertical"
+                android:text="Categories"
+                android:textSize="@dimen/p" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ratingTextView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:fontFamily="@font/geist_regular"
+                    android:gravity="top"
+                    android:text="5.2"
+                    android:textSize="@dimen/p" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="@dimen/h5"
+                    android:layout_height="@dimen/h5"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="3"
+                    app:srcCompat="@drawable/star_solid" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

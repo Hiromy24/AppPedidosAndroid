@@ -8,6 +8,8 @@ public class Game {
     private String Descripcion;
     private List<String> Imagenes;
 
+    private String Categoria;
+
     @SerializedName("Puntuación")
     private double Puntuacion;
 
@@ -43,4 +45,14 @@ public class Game {
     public void setPuntuacion(double puntuacion) {
         this.Puntuacion = puntuacion;
     }
+
+
+    public String getCategorias() {
+        return Categoria;
+    }
+
+    public void setCategorias(String categorias) {
+        this.Categoria = categorias;
+    }
+
 }
