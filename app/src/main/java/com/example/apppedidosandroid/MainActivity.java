@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apppedidosandroid.adapters.RectangularItemAdapter;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private void fetchRandomGames() {
         // Configurar Retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.122.67:5000") // Cambia esto a la URL de tu API
+                .baseUrl("http://10.18.200.9:5000") // Cambia esto a la URL de tu API
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
                     rv.setAdapter(adapter);
                     RectangularItemAdapter adapter2 = new RectangularItemAdapter(games);
                     rv2.setAdapter(adapter2);
+                    PagerSnapHelper snapHelper = new PagerSnapHelper();
+                    snapHelper.attachToRecyclerView(rv);
+                    snapHelper.attachToRecyclerView(rv2);
                 } else {
                     Log.e("API_ERROR", "Response code: " + response.code());
                     Log.e("API_ERROR", "Response message: " + response.message());

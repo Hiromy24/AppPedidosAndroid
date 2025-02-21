@@ -17,24 +17,38 @@ import java.util.List;
 
 public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItemAdapter.ViewHolder> {
 
-    private final List<Game> games;
+
+    private List<Game> games;
 
     public RectangularItemAdapter(List<Game> games) {
-
         this.games = games;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView, categoryTextView, ratingTextView;
-        public ImageView imageView;
+        public TextView textView1, categoryTextView1, ratingTextView1;
+        public TextView textView2, categoryTextView2, ratingTextView2;
+        public TextView textView3, categoryTextView3, ratingTextView3;
+        public ImageView imageView1, imageView2, imageView3;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.gameImageView);
-            textView = itemView.findViewById(R.id.gameNameTextView);
-            categoryTextView = itemView.findViewById(R.id.gameCategoriesTextView);
-            ratingTextView = itemView.findViewById(R.id.ratingTextView);
+            imageView1 = itemView.findViewById(R.id.gameImageView1);
+            textView1 = itemView.findViewById(R.id.gameNameTextView1);
+            categoryTextView1 = itemView.findViewById(R.id.gameCategoriesTextView1);
+            ratingTextView1 = itemView.findViewById(R.id.ratingTextView1);
+
+            imageView2 = itemView.findViewById(R.id.gameImageView2);
+            textView2 = itemView.findViewById(R.id.gameNameTextView2);
+            categoryTextView2 = itemView.findViewById(R.id.gameCategoriesTextView2);
+            ratingTextView2 = itemView.findViewById(R.id.ratingTextView2);
+
+            imageView3 = itemView.findViewById(R.id.gameImageView3);
+            textView3 = itemView.findViewById(R.id.gameNameTextView3);
+            categoryTextView3 = itemView.findViewById(R.id.gameCategoriesTextView3);
+            ratingTextView3 = itemView.findViewById(R.id.ratingTextView3);
         }
     }
+
     @NonNull
     @Override
     public RectangularItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,23 +58,37 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
 
     @Override
     public void onBindViewHolder(@NonNull RectangularItemAdapter.ViewHolder holder, int position) {
-        Game game = games.get(position);
-        holder.textView.setText(game.getNombre());
-        holder.ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
+        int baseIndex = position * 3;
 
-        // Usar Glide para cargar la imagen
-        if (game.getImagenes() != null && !game.getImagenes().isEmpty()) {
-            Glide.with(holder.itemView.getContext())
-                    .load(game.getImagenes().get(0)) // Cargar la primera URL de imagen
-                    .into(holder.imageView);
+        bindGame(holder.imageView1, holder.textView1, holder.categoryTextView1, holder.ratingTextView1, baseIndex);
+        bindGame(holder.imageView2, holder.textView2, holder.categoryTextView2, holder.ratingTextView2, baseIndex + 1);
+        bindGame(holder.imageView3, holder.textView3, holder.categoryTextView3, holder.ratingTextView3, baseIndex + 2);
+    }
+
+    private void bindGame(ImageView imageView, TextView nameTextView, TextView categoryTextView, TextView ratingTextView, int index) {
+        if (index < games.size()) {
+            Game game = games.get(index);
+            nameTextView.setText(game.getNombre());
+            categoryTextView.setText(game.getDescripcion());
+            ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
+
+            if (game.getImagenes() != null && !game.getImagenes().isEmpty()) {
+                Glide.with(imageView.getContext())
+                        .load(game.getImagenes().get(0))
+                        .into(imageView);
+            } else {
+                imageView.setImageResource(R.drawable.ic_launcher_background);
+            }
         } else {
-            // Imagen por defecto si no hay imágenes
-            holder.imageView.setImageResource(R.drawable.ic_launcher_background);
+            nameTextView.setText("");
+            categoryTextView.setText("");
+            ratingTextView.setText("");
+            imageView.setImageResource(R.drawable.ic_launcher_background);
         }
     }
 
     @Override
     public int getItemCount() {
-        return games.size();
+        return (int) Math.ceil(games.size() / 3.0);
     }
 }
