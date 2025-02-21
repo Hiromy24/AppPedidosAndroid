@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Llamada a la API (aquí debes enviar el nombre de la app o dejarlo vacío para obtener juegos aleatorios)
-        Map<String, String> request = Map.of("app_name", "fruit ninja"); // Puedes dejar vacío para buscar juegos aleatorios
+        Map<String, String> request = Map.of("app_name", ""); // Puedes dejar vacío para buscar juegos aleatorios
         Call<List<Game>> call = apiService.getRandomGames(request);
 
         // Ejecutar la llamada asíncrona
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Game> games = response.body();
-                    Log.d("API_RESPONSE", "Games: " + games.toString());
+                    Log.d("API_RESPONSE", "Games: " + games);
                     SquareItemAdapter adapter = new SquareItemAdapter(games);
                     rv.setAdapter(adapter);
                     RectangularItemAdapter adapter2 = new RectangularItemAdapter(games);

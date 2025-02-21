@@ -69,7 +69,7 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
         if (index < games.size()) {
             Game game = games.get(index);
             nameTextView.setText(game.getNombre());
-            categoryTextView.setText(game.getDescripcion());
+            categoryTextView.setText(game.getCategorias());
             ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
 
             if (game.getImagenes() != null && !game.getImagenes().isEmpty()) {
