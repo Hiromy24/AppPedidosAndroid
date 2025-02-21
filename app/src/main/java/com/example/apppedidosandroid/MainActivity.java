@@ -18,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,11 +50,13 @@ public class MainActivity extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Llamada a la API (aquí debes enviar el nombre de la app o dejarlo vacío para obtener juegos aleatorios)
-        Map<String, String> request = Map.of("app_name", ""); // Puedes dejar vacío para buscar juegos aleatorios
-        Call<List<Game>> call = apiService.getRandomGames(request);
+        Map<String, Object> request = Map.of("app_name", "");
+        Map<String, Object> request1 = Map.of("category", "Strategy", "n_hits", 12);
+        Call<List<Game>> randomGames = apiService.getGames(request);
+        Call<List<Game>> strategyGames = apiService.getGames(request1);
 
         // Ejecutar la llamada asíncrona
-        call.enqueue(new Callback<List<Game>>() {
+        randomGames.enqueue(new Callback<List<Game>>() {
             @Override
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -61,10 +64,33 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("API_RESPONSE", "Games: " + games);
                     SquareItemAdapter adapter = new SquareItemAdapter(games);
                     rv.setAdapter(adapter);
+                    PagerSnapHelper snapHelper = new PagerSnapHelper();
+                    snapHelper.attachToRecyclerView(rv);
+                } else {
+                    Log.e("API_ERROR", "Response code: " + response.code());
+                    Log.e("API_ERROR", "Response message: " + response.message());
+                    Toast.makeText(MainActivity.this, "No se encontraron juegos", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+
+            @Override
+            public void onFailure(Call<List<Game>> call, Throwable t) {
+                Log.e("API_ERROR", "Error: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Error al obtener los juegos", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+       strategyGames.enqueue(new Callback<List<Game>>() {
+            @Override
+            public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Game> games = response.body();
+                    Log.d("API_RESPONSE", "Games: " + games);
                     RectangularItemAdapter adapter2 = new RectangularItemAdapter(games);
                     rv2.setAdapter(adapter2);
                     PagerSnapHelper snapHelper = new PagerSnapHelper();
-                    snapHelper.attachToRecyclerView(rv);
                     snapHelper.attachToRecyclerView(rv2);
                 } else {
                     Log.e("API_ERROR", "Response code: " + response.code());
@@ -72,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "No se encontraron juegos", Toast.LENGTH_SHORT).show();
                 }
             }
+
+
 
             @Override
             public void onFailure(Call<List<Game>> call, Throwable t) {
