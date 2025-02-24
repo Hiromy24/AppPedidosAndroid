@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etPassword;
 
     com.google.android.gms.common.SignInButton googleSignInButton;
-    private ActivityResultLauncher<Intent> signInLauncher;
+    private ActivityResultLauncher<Intent> signInGoogleLauncher;
     private static final String TAG = "LoginActivity";
 
     @Override
@@ -56,8 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.pwdEditText);
         googleSignInButton = findViewById(R.id.sign_in_button);
 
-        // Register the launcher
-        signInLauncher = registerForActivityResult(
+        //region Launcher for Google Sign In
+        signInGoogleLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
@@ -70,7 +69,18 @@ public class LoginActivity extends AppCompatActivity {
                                     .addOnCompleteListener(this, task1 -> {
                                         if (task1.isSuccessful()) {
                                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                            Toast.makeText(this, "Google sign in successful", Toast.LENGTH_SHORT).show();
+                                            if (user != null) {
+                                                SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = prefs.edit();
+                                                editor.putString("email", user.getEmail());
+                                                editor.putString("username", user.getDisplayName());
+                                                editor.putString("photoUrl_" + user.getEmail(),
+                                                        account.getPhotoUrl().toString()).apply();
+                                                editor.apply();
+                                            }
+                                            Intent intent = new Intent();
+                                            setResult(RESULT_OK, intent);
+                                            finish();
                                         } else {
                                             Toast.makeText(this, "Google sign in failed", Toast.LENGTH_SHORT).show();
                                         }
@@ -81,24 +91,30 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
         );
+        //endregion
 
         btnRegister.setOnClickListener(v -> {
-            if (!etEmail.getText().toString().isEmpty() &&
+
+            /*if (!etEmail.getText().toString().isEmpty() &&
                     !etPassword.getText().toString().isEmpty()) {
                 FirebaseAuth.getInstance()
                         .createUserWithEmailAndPassword
                                 (etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(this, "Completed registration",
-                                        Toast.LENGTH_SHORT).show();
+
+
+
+                                Intent intent = new Intent();
+                                setResult(RESULT_OK, intent);
+                                finish();
                             } else {
                                 Toast.makeText(this, "Error on registration",
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
 
-            }
+            }*/
         });
 
         btnLogin.setOnClickListener(k -> {
@@ -109,8 +125,16 @@ public class LoginActivity extends AppCompatActivity {
                                 (etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(this, "Completed login",
-                                        Toast.LENGTH_SHORT).show();
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (user != null) {
+                                    SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = prefs.edit();
+                                    editor.putString("email", user.getEmail());
+                                    editor.apply();
+                                }
+                                Intent intent = new Intent();
+                                setResult(RESULT_OK, intent);
+                                finish();
                             } else {
                                 Toast.makeText(this, "No user or email login",
                                         Toast.LENGTH_SHORT).show();
@@ -121,14 +145,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         googleSignInButton.setOnClickListener(v -> {
-            SharedPreferences prefs1 =
-                    getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
-            String email = prefs1.getString("email", null);
-            String provider1 = prefs1.getString("provider", null);
-
-            if (email != null && provider1 != null) {
-                Toast.makeText(this, "Already logged in", Toast.LENGTH_SHORT).show();
-            } else {
                 GoogleSignInOptions gso = new GoogleSignInOptions
                         .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestIdToken(getString(R.string.default_web_client_id))
@@ -138,9 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                         com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(this, gso);
                 googleSignInClient.signOut();
                 Intent signInIntent = googleSignInClient.getSignInIntent();
-                signInLauncher.launch(signInIntent);
-            }
-
+                signInGoogleLauncher.launch(signInIntent);
         });
     }
 }

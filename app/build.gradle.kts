@@ -33,9 +33,9 @@ android {
 }
 
 dependencies {
-    implementation(libs.firebase.auth)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
+    implementation(libs.glide)
+    implementation(libs.google.firebase.auth)
+    annotationProcessor(libs.compiler)
     implementation(libs.play.services.auth)
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -44,5 +44,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
 }

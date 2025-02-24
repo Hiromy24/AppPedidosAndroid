@@ -1,10 +1,18 @@
 package com.example.apppedidosandroid;
 
+import android.animation.ObjectAnimator;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,6 +26,7 @@ import com.example.apppedidosandroid.adapters.SquareItemAdapter;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class MainActivity extends AppCompatActivity {
+    private ActivityResultLauncher<Intent> loginLauncher;
     RecyclerView recyclerView, recyclerView1;
     MaterialToolbar topAppBar;
     @Override
@@ -76,6 +85,17 @@ public class MainActivity extends AppCompatActivity {
     }
     void setRecyclerAdapter(){
         //region ARRAYS
+
+        loginLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Toast.makeText(this, "Login succeed", Toast.LENGTH_SHORT).show();
+                        showProfileSheet();
+                    }
+                });
+
+
         String[] items = {"Girasol", "Geranio","Amapola","Violeta","Rosa","Clavel","Flor de Sauco",
                 "Flor de lis","Lirio","Flor de loto","Gardenia","flor de las nieves","Margarita"};
         int[] images = {
@@ -102,5 +122,37 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(new SquareItemAdapter(items, images));
         recyclerView1.setAdapter(new RectangularItemAdapter(items, images, categories, rating));
     }
-    //endregion
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_app_bar, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+
+            return true;
+        } else if (id == R.id.action_cart) {
+            // Acción para el botón de carrito
+            return true;
+        } else if (id == R.id.action_profile) {
+            showProfileSheet();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void showProfileSheet() {
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file),
+                MODE_PRIVATE);
+        if (preferences.getString("email", null) != null) {
+            ProfileSheet profileSheet = new ProfileSheet();
+            profileSheet.show(getSupportFragmentManager(), "ProfileSheet");
+        } else {
+            Intent intent = new Intent(this, LoginActivity.class);
+            loginLauncher.launch(intent);
+        }
+    }
+
 }
