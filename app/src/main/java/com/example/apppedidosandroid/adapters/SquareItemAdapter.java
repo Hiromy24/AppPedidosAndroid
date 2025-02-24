@@ -9,27 +9,32 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.apppedidosandroid.Game;
 import com.example.apppedidosandroid.R;
+
+import java.util.List;
 
 public class SquareItemAdapter extends RecyclerView.Adapter<SquareItemAdapter.ViewHolder> {
 
-    private final String[] items;
-    private final int[] images;
+    private final List<Game> games;
 
-    public SquareItemAdapter(String[] items, int[] images) {
-        this.items = items;
-        this.images = images;
+    public SquareItemAdapter(List<Game> games) {
+        this.games = games;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
-        public ImageView imageView;
+        TextView nameTextView, descriptionTextView, ratingTextView;
+        ImageView gameImageView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.productImageView);
-            textView = itemView.findViewById(R.id.productTextView);
+            nameTextView = itemView.findViewById(R.id.gameName);
+            ratingTextView = itemView.findViewById(R.id.gameRating);
+            gameImageView = itemView.findViewById(R.id.gameImage);
         }
     }
+
     @NonNull
     @Override
     public SquareItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,13 +43,24 @@ public class SquareItemAdapter extends RecyclerView.Adapter<SquareItemAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SquareItemAdapter.ViewHolder holder, int position) {
-        holder.textView.setText(items[position]);
-        holder.imageView.setImageResource(images[position]);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Game game = games.get(position);
+        holder.nameTextView.setText(game.getNombre());
+        holder.ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
+
+        // Usar Glide para cargar la imagen
+        if (game.getImagenes() != null && !game.getImagenes().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(game.getImagenes().get(0)) // Cargar la primera URL de imagen
+                    .into(holder.gameImageView);
+        } else {
+            // Imagen por defecto si no hay imágenes
+            holder.gameImageView.setImageResource(R.drawable.ic_launcher_background);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return items.length;
+        return games.size();
     }
 }

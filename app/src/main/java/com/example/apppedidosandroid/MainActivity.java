@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
@@ -14,16 +16,21 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apppedidosandroid.adapters.RectangularItemAdapter;
 import com.example.apppedidosandroid.adapters.SquareItemAdapter;
-import com.google.android.material.appbar.MaterialToolbar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> loginLauncher;
@@ -32,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        fetchRandomGames(); // Llamar al método que obtiene los juegos
         linkComponents();
         setSupportActionBar(topAppBar);
         recyclerViewManager();
@@ -60,6 +67,73 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_search) {
 
+    private void fetchRandomGames() {
+        // Configurar Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.18.200.9:5000") // Cambia esto a la URL de tu API
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        // Llamada a la API (aquí debes enviar el nombre de la app o dejarlo vacío para obtener juegos aleatorios)
+        Map<String, Object> request = Map.of("app_name", "");
+        Map<String, Object> request1 = Map.of("category", "Strategy", "n_hits", 12);
+        Call<List<Game>> randomGames = apiService.getGames(request);
+        Call<List<Game>> strategyGames = apiService.getGames(request1);
+
+        // Ejecutar la llamada asíncrona
+        randomGames.enqueue(new Callback<List<Game>>() {
+            @Override
+            public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Game> games = response.body();
+                    Log.d("API_RESPONSE", "Games: " + games);
+                    SquareItemAdapter adapter = new SquareItemAdapter(games);
+                    rv.setAdapter(adapter);
+                    PagerSnapHelper snapHelper = new PagerSnapHelper();
+                    snapHelper.attachToRecyclerView(rv);
+                } else {
+                    Log.e("API_ERROR", "Response code: " + response.code());
+                    Log.e("API_ERROR", "Response message: " + response.message());
+                    Toast.makeText(MainActivity.this, "No se encontraron juegos", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+
+            @Override
+            public void onFailure(Call<List<Game>> call, Throwable t) {
+                Log.e("API_ERROR", "Error: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Error al obtener los juegos", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+       strategyGames.enqueue(new Callback<List<Game>>() {
+            @Override
+            public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Game> games = response.body();
+                    Log.d("API_RESPONSE", "Games: " + games);
+                    RectangularItemAdapter adapter2 = new RectangularItemAdapter(games);
+                    rv2.setAdapter(adapter2);
+                    PagerSnapHelper snapHelper = new PagerSnapHelper();
+                    snapHelper.attachToRecyclerView(rv2);
+                } else {
+                    Log.e("API_ERROR", "Response code: " + response.code());
+                    Log.e("API_ERROR", "Response message: " + response.message());
+                    Toast.makeText(MainActivity.this, "No se encontraron juegos", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+
+            @Override
+            public void onFailure(Call<List<Game>> call, Throwable t) {
+                Log.e("API_ERROR", "Error: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Error al obtener los juegos", Toast.LENGTH_SHORT).show();
+            }
+        });
             return true;
         } else if (id == R.id.action_cart) {
             // Acción para el botón de carrito

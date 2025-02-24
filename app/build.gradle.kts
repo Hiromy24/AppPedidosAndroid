@@ -33,6 +33,11 @@ android {
 }
 
 dependencies {
+    implementation (libs.com.github.bumptech.glide.glide)
+    annotationProcessor (libs.compiler)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.squareup.logging.interceptor)
     implementation(libs.glide)
     implementation(libs.google.firebase.auth)
     annotationProcessor(libs.compiler)

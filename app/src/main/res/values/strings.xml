@@ -16,6 +16,8 @@
     <string name="directions">Directions</string>
     <string name="billing">Billing adress</string>
     <string name="app_title">PlaceHolder</string>
+    <string name="strategy">Strategy</string>
+    <string name="foryou">Suggestions for you</string>
     <string name="SearchIconDescription">Search for a product</string>
     <string name="CartIconDescription">Look the cart products</string>
     <string name="ProfileIconDescription">Open your profile</string>

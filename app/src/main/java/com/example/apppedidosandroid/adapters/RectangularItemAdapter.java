@@ -9,33 +9,46 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.apppedidosandroid.Game;
 import com.example.apppedidosandroid.R;
+
+import java.util.List;
 
 public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItemAdapter.ViewHolder> {
 
-    private final String[] items;
-    private final String[] categories;
-    private final double[] rating;
-    private final int[] images;
 
-    public RectangularItemAdapter(String[] items, int[] images, String[] categories, double[] rating) {
-        this.items = items;
-        this.images = images;
-        this.categories = categories;
-        this.rating = rating;
+    private List<Game> games;
+
+    public RectangularItemAdapter(List<Game> games) {
+        this.games = games;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView, categoryTextView, ratingTextView;
-        public ImageView imageView;
+        public TextView textView1, categoryTextView1, ratingTextView1;
+        public TextView textView2, categoryTextView2, ratingTextView2;
+        public TextView textView3, categoryTextView3, ratingTextView3;
+        public ImageView imageView1, imageView2, imageView3;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.productImageView);
-            textView = itemView.findViewById(R.id.productNameTextView);
-            categoryTextView = itemView.findViewById(R.id.productCategoriesTextView);
-            ratingTextView = itemView.findViewById(R.id.ratingTextView);
+            imageView1 = itemView.findViewById(R.id.gameImageView1);
+            textView1 = itemView.findViewById(R.id.gameNameTextView1);
+            categoryTextView1 = itemView.findViewById(R.id.gameCategoriesTextView1);
+            ratingTextView1 = itemView.findViewById(R.id.ratingTextView1);
+
+            imageView2 = itemView.findViewById(R.id.gameImageView2);
+            textView2 = itemView.findViewById(R.id.gameNameTextView2);
+            categoryTextView2 = itemView.findViewById(R.id.gameCategoriesTextView2);
+            ratingTextView2 = itemView.findViewById(R.id.ratingTextView2);
+
+            imageView3 = itemView.findViewById(R.id.gameImageView3);
+            textView3 = itemView.findViewById(R.id.gameNameTextView3);
+            categoryTextView3 = itemView.findViewById(R.id.gameCategoriesTextView3);
+            ratingTextView3 = itemView.findViewById(R.id.ratingTextView3);
         }
     }
+
     @NonNull
     @Override
     public RectangularItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,14 +58,37 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
 
     @Override
     public void onBindViewHolder(@NonNull RectangularItemAdapter.ViewHolder holder, int position) {
-        holder.textView.setText(items[position]);
-        holder.imageView.setImageResource(images[position]);
-        holder.categoryTextView.setText(categories[position]);
-        holder.ratingTextView.setText(String.valueOf(rating[position]));
+        int baseIndex = position * 3;
+
+        bindGame(holder.imageView1, holder.textView1, holder.categoryTextView1, holder.ratingTextView1, baseIndex);
+        bindGame(holder.imageView2, holder.textView2, holder.categoryTextView2, holder.ratingTextView2, baseIndex + 1);
+        bindGame(holder.imageView3, holder.textView3, holder.categoryTextView3, holder.ratingTextView3, baseIndex + 2);
+    }
+
+    private void bindGame(ImageView imageView, TextView nameTextView, TextView categoryTextView, TextView ratingTextView, int index) {
+        if (index < games.size()) {
+            Game game = games.get(index);
+            nameTextView.setText(game.getNombre());
+            categoryTextView.setText(game.getCategorias());
+            ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
+
+            if (game.getImagenes() != null && !game.getImagenes().isEmpty()) {
+                Glide.with(imageView.getContext())
+                        .load(game.getImagenes().get(0))
+                        .into(imageView);
+            } else {
+                imageView.setImageResource(R.drawable.ic_launcher_background);
+            }
+        } else {
+            nameTextView.setText("");
+            categoryTextView.setText("");
+            ratingTextView.setText("");
+            imageView.setImageResource(R.drawable.ic_launcher_background);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return items.length;
+        return (int) Math.ceil(games.size() / 3.0);
     }
 }
