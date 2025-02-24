@@ -62,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         } else if (id == R.id.action_cart) {
+            // Acción para el botón de carrito
             return true;
         } else if (id == R.id.action_profile) {
+            showProfileSheet();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -96,51 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-        String[] items = {"Girasol", "Geranio","Amapola","Violeta","Rosa","Clavel","Flor de Sauco",
-                "Flor de lis","Lirio","Flor de loto","Gardenia","flor de las nieves","Margarita"};
-        int[] images = {
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background,
-                R.drawable.ic_launcher_background
-        };
-        String[] categories = {"Carne, Pan", "Queso, Masa",
-                "Papas, Frito", "Salchicha, Pan", "Carne, Pan", "Queso, Masa", "Papas, Frito",
-                "Salchicha,Pan", "Carne, Pan",
-                "Queso, Masa", "Papas, Frito","Salchicha, Pan", "Carne, Pan"};
-        double[] rating = {4.5, 4.8, 4.2, 4.0, 4.5, 4.8, 4.2, 4.0, 4.5, 4.8, 4.2, 4.0, 4.0};
         //endregion
-        recyclerView.setAdapter(new SquareItemAdapter(items, images));
-        recyclerView1.setAdapter(new RectangularItemAdapter(items, images, categories, rating));
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_app_bar, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_search) {
-
-            return true;
-        } else if (id == R.id.action_cart) {
-            // Acción para el botón de carrito
-            return true;
-        } else if (id == R.id.action_profile) {
-            showProfileSheet();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void showProfileSheet() {
