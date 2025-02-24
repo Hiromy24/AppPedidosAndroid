@@ -14,13 +14,16 @@
     <string name="register">Register</string>
     <string name="addDirections">Add New Direction</string>
     <string name="directions">Directions</string>
-    <string name="billing">Billing adress</string>
+    <string name="billing">Billing address</string>
     <string name="app_title">PlaceHolder</string>
     <string name="strategy">Strategy</string>
     <string name="foryou">Suggestions for you</string>
     <string name="SearchIconDescription">Search for a product</string>
     <string name="CartIconDescription">Look the cart products</string>
     <string name="ProfileIconDescription">Open your profile</string>
+    <string name="back">Go back</string>
+    <string name="myDirections">Billing addresses</string>
     <string name="placeholder">Placeholder</string>
+    <string name="edit">Edit</string>
 
 </resources>
