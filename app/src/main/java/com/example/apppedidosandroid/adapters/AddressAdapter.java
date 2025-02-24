@@ -23,16 +23,21 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTextView, phoneTextView, addressLine1TextView, addressLine2TextView;
+        public TextView nameTextView, phoneTextView, streetTextView, streetNumberTextView,
+                portalTextView, postalCodeTextView, cityProvinceTextView;
+
         public ImageView addressImageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             addressImageView = itemView.findViewById(R.id.addressImage);
-            nameTextView = itemView.findViewById(R.id.textView5);
+            nameTextView = itemView.findViewById(R.id.nameTextView);
             phoneTextView = itemView.findViewById(R.id.phoneTextView);
-            addressLine1TextView = itemView.findViewById(R.id.textView7);
-            addressLine2TextView = itemView.findViewById(R.id.textView8);
+            streetTextView = itemView.findViewById(R.id.streetTextView);
+            streetNumberTextView = itemView.findViewById(R.id.numbertextView);
+            portalTextView = itemView.findViewById(R.id.portalTextView);
+            postalCodeTextView = itemView.findViewById(R.id.postalTextView);
+            cityProvinceTextView = itemView.findViewById(R.id.cityProvincetextView);
         }
     }
 
@@ -48,8 +53,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         Address address = addressList.get(position);
         holder.nameTextView.setText(address.getName());
         holder.phoneTextView.setText(address.getPhone());
-        holder.addressLine1TextView.setText(address.getAddressLine1());
-        holder.addressLine2TextView.setText(address.getAddressLine2());
+        holder.streetTextView.setText(address.getStreet());
+        holder.streetNumberTextView.setText(address.getStreetNumber());
+        holder.portalTextView.setText(address.getPortal());
+        holder.postalCodeTextView.setText(address.getPostalCode());
+        holder.cityProvinceTextView.setText(address.getCityProvince());
     }
 
     @Override

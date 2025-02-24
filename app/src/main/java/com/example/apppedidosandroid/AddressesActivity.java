@@ -1,13 +1,15 @@
 package com.example.apppedidosandroid;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apppedidosandroid.R;
 import com.example.apppedidosandroid.adapters.AddressAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,21 +19,31 @@ public class AddressesActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AddressAdapter addressAdapter;
     private List<Address> addressList;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addresses);
 
-        recyclerView = findViewById(R.id.itemRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        addressList = new ArrayList<>();
-        // Agrega elementos a la lista de direcciones
-        addressList.add(new Address("Juan David", "+34-578945320", "Calle Aguja, N80, 4G", "54320, Parla-Valencia"));
-        // Agrega más elementos según sea necesario
+        if (currentUser != null) {
+            String email = currentUser.getEmail();
 
-        addressAdapter = new AddressAdapter(addressList);
-        recyclerView.setAdapter(addressAdapter);
+            recyclerView = findViewById(R.id.itemRecyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            addressList = new ArrayList<>();
+            // Fetch addresses from the database using the email
+            AddressDAO addressDAO = new AddressDAO();
+            addressList = addressDAO.getAllAddresses(email);
+
+            addressAdapter = new AddressAdapter(addressList);
+            recyclerView.setAdapter(addressAdapter);
+        } else {
+            Toast.makeText(this, "No user is logged in", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -1,19 +1,31 @@
 package com.example.apppedidosandroid;
 
 public class Address {
+    private String email;
     private String name;
     private String phone;
-    private String addressLine1;
-    private String addressLine2;
+    private String street;
+    private String streetNumber;
+    private String portal;
+    private String postalCode;
+    private String cityProvince;
 
-    public Address(String name, String phone, String addressLine1, String addressLine2) {
+    public Address(String email, String name, String phone, String street, String streetNumber, String portal, String postalCode, String cityProvince) {
+        this.email = email;
         this.name = name;
         this.phone = phone;
-        this.addressLine1 = addressLine1;
-        this.addressLine2 = addressLine2;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.portal = portal;
+        this.postalCode = postalCode;
+        this.cityProvince = cityProvince;
     }
 
-    public String getName() { 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
         return name;
     }
 
@@ -21,11 +33,25 @@ public class Address {
         return phone;
     }
 
-    public String getAddressLine1() {
-        return addressLine1;
+    public String getStreet() {
+        return street;
     }
 
-    public String getAddressLine2() {
-        return addressLine2;
+    public String getStreetNumber() {
+        return streetNumber;
     }
+
+    public String getPortal() {
+        return portal;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getCityProvince() {
+        return cityProvince;
+    }
+
+
 }

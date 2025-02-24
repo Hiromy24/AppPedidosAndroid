@@ -35,7 +35,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/nameTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Juan David" />
@@ -49,17 +49,53 @@
                     android:text="+34-578945320" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView7"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Calle Aguja, N80, 4G" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView8"
+                <TextView
+                    android:id="@+id/streetTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Calle Aguja" />
+
+                <TextView
+                    android:id="@+id/numbertextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="N80" />
+
+                <TextView
+                    android:id="@+id/portalTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="4F" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="54320, Parla-Valencia" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/postalTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="54320" />
+
+                <TextView
+                    android:id="@+id/cityProvincetextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="Parla-Valencia" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView11"
