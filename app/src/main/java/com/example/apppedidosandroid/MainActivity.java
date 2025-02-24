@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         // Ejecutar la llamada asíncrona
         randomGames.enqueue(new Callback<List<Game>>() {
             @Override
-            public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
+            public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Game> games = response.body();
                     Log.d("API_RESPONSE", "Games: " + games);
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             @Override
-            public void onFailure(Call<List<Game>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Error al obtener los juegos", Toast.LENGTH_SHORT).show();
             }
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
        strategyGames.enqueue(new Callback<List<Game>>() {
             @Override
-            public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
+            public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Game> games = response.body();
                     Log.d("API_RESPONSE", "Games: " + games);
@@ -145,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             @Override
-            public void onFailure(Call<List<Game>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Error al obtener los juegos", Toast.LENGTH_SHORT).show();
             }
