@@ -16,12 +16,18 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apppedidosandroid.adapters.RectangularItemAdapter;
 import com.example.apppedidosandroid.adapters.SquareItemAdapter;
+import com.google.android.material.appbar.MaterialToolbar;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
+    });
 
-        fetchRandomGames(); // Llamar al método que obtiene los juegos
         linkComponents();
         setSupportActionBar(topAppBar);
         recyclerViewManager();
+        fetchRandomGames(); // Llamar al método que obtiene los juegos
     }
     void linkComponents(){
         recyclerView = findViewById(R.id.squareItemRecyclerView);
@@ -66,11 +72,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_search) {
+            return true;
+        } else if (id == R.id.action_cart) {
+            // Acción para el botón de carrito
+            return true;
+        } else if (id == R.id.action_profile) {
+            showProfileSheet();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void fetchRandomGames() {
         // Configurar Retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.18.200.9:5000") // Cambia esto a la URL de tu API
+                .baseUrl("http://10.34.121.44:5000") // Cambia esto a la URL de tu API
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -90,9 +106,9 @@ public class MainActivity extends AppCompatActivity {
                     List<Game> games = response.body();
                     Log.d("API_RESPONSE", "Games: " + games);
                     SquareItemAdapter adapter = new SquareItemAdapter(games);
-                    rv.setAdapter(adapter);
+                    recyclerView.setAdapter(adapter);
                     PagerSnapHelper snapHelper = new PagerSnapHelper();
-                    snapHelper.attachToRecyclerView(rv);
+                    snapHelper.attachToRecyclerView(recyclerView);
                 } else {
                     Log.e("API_ERROR", "Response code: " + response.code());
                     Log.e("API_ERROR", "Response message: " + response.message());
@@ -116,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
                     List<Game> games = response.body();
                     Log.d("API_RESPONSE", "Games: " + games);
                     RectangularItemAdapter adapter2 = new RectangularItemAdapter(games);
-                    rv2.setAdapter(adapter2);
+                    recyclerView1.setAdapter(adapter2);
                     PagerSnapHelper snapHelper = new PagerSnapHelper();
-                    snapHelper.attachToRecyclerView(rv2);
+                    snapHelper.attachToRecyclerView(recyclerView1);
                 } else {
                     Log.e("API_ERROR", "Response code: " + response.code());
                     Log.e("API_ERROR", "Response message: " + response.message());
@@ -134,15 +150,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Error al obtener los juegos", Toast.LENGTH_SHORT).show();
             }
         });
-            return true;
-        } else if (id == R.id.action_cart) {
-            // Acción para el botón de carrito
-            return true;
-        } else if (id == R.id.action_profile) {
-            showProfileSheet();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
     //endregion
     //region RecyclerView
