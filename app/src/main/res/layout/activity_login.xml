@@ -51,7 +51,7 @@
 
             <TextView
                 android:id="@+id/emailTextView"
-                android:layout_width="30dp"
+                android:layout_width="41dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:text="@string/email"
@@ -78,7 +78,7 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="55dp"
+                android:layout_width="66dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:text="@string/password"
