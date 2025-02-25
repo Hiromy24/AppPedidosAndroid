@@ -23,7 +23,7 @@ public class AddressDAO {
             statement.setString(5, address.getStreetNumber());
             statement.setString(6, address.getPortal());
             statement.setString(7, address.getPostalCode());
-            statement.setString(8, address.getCityProvince());
+            statement.setString(8, address.getCity());
 
             statement.executeUpdate();
         } catch (SQLException e) {

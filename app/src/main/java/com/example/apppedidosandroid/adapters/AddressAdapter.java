@@ -57,7 +57,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         holder.streetNumberTextView.setText(address.getStreetNumber());
         holder.portalTextView.setText(address.getPortal());
         holder.postalCodeTextView.setText(address.getPostalCode());
-        holder.cityProvinceTextView.setText(address.getCityProvince());
+        holder.cityProvinceTextView.setText(address.getCity());
     }
 
     @Override

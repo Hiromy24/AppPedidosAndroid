@@ -12,8 +12,8 @@
     <string name="password_hint">********</string>
     <string name="or">or</string>
     <string name="register">Register</string>
-    <string name="addDirections">Add New Direction</string>
-    <string name="directions">Directions</string>
+    <string name="addDirections">Add New Address</string>
+    <string name="directions">Addresses</string>
     <string name="billing">Billing address</string>
     <string name="app_title">PlaceHolder</string>
     <string name="strategy">Strategy</string>
@@ -25,5 +25,12 @@
     <string name="myDirections">Billing addresses</string>
     <string name="placeholder">Placeholder</string>
     <string name="edit">Edit</string>
-
+    <string name="personInfo">Personal information</string>
+    <string name="full_name_hint">Full name</string>
+    <string name="phone_hint">634512890</string>
+    <string name="street">Street name</string>
+    <string name="street_number">23</string>
+    <string name="portal">4H</string>
+    <string name="postal_code">87654</string>
+    <string name="city">City</string>
 </resources>

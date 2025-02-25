@@ -8,9 +8,9 @@ public class Address {
     private String streetNumber;
     private String portal;
     private String postalCode;
-    private String cityProvince;
+    private String city;
 
-    public Address(String email, String name, String phone, String street, String streetNumber, String portal, String postalCode, String cityProvince) {
+    public Address(String email, String name, String phone, String street, String streetNumber, String portal, String postalCode, String city) {
         this.email = email;
         this.name = name;
         this.phone = phone;
@@ -18,7 +18,7 @@ public class Address {
         this.streetNumber = streetNumber;
         this.portal = portal;
         this.postalCode = postalCode;
-        this.cityProvince = cityProvince;
+        this.city = city;
     }
 
     public String getEmail() {
@@ -49,8 +49,8 @@ public class Address {
         return postalCode;
     }
 
-    public String getCityProvince() {
-        return cityProvince;
+    public String getCity() {
+        return city;
     }
 
 
