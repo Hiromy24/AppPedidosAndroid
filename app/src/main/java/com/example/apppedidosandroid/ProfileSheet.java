@@ -48,14 +48,13 @@ public class ProfileSheet extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile_sheet, container, false);
-
         ImageButton btnClose = view.findViewById(R.id.closeButton);
-        btnClose.setOnClickListener(v -> dismiss());
         FrameLayout photo = view.findViewById(R.id.photoLayout);
+
         preferences = requireActivity().getSharedPreferences(getString(R.string.prefs_file),
                 requireContext().MODE_PRIVATE);
         ImageView profileImage = view.findViewById(R.id.profileImageView);
-
+        btnClose.setOnClickListener(v -> dismiss());
         photo.setOnClickListener(v -> {
             if (checkPermissions()) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

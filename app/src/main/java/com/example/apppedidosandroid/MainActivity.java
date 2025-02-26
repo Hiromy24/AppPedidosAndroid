@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     private void fetchRandomGames() {
         // Configurar Retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.121.44:5000") // Cambia esto a la URL de tu API
+                .baseUrl("http://10.34.127.195:5000") // Cambia esto a la URL de tu API
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -104,9 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Game> games = response.body();
-                    Log.d("API_RESPONSE", "Games: " + games);
-                    SquareItemAdapter adapter = new SquareItemAdapter(games);
+                    SquareItemAdapter adapter = new SquareItemAdapter(response.body());
                     recyclerView.setAdapter(adapter);
                     PagerSnapHelper snapHelper = new PagerSnapHelper();
                     snapHelper.attachToRecyclerView(recyclerView);
