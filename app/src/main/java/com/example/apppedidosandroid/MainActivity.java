@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     //endregion
 
     public void moreGames(View view){
-        Intent intent = new Intent(this, gamesListActivity.class);
+        Intent intent = new Intent(this, gameListActivity.class);
         intent.putExtra("value", view.getTag().toString());
         startActivity(intent);
     }
