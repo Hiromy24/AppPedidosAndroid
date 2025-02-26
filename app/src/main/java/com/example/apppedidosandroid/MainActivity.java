@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     //endregion
 
     public void moreGames(View view){
-        Intent intent = new Intent(this, gamesListActivity.class);
+        Intent intent = new Intent(this, ProfileSheet.class);
         intent.putExtra("value", view.getTag().toString());
         startActivity(intent);
     }
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         Call<List<Game>> callStrategyGames;
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.121.44:5000")
+                .baseUrl("http://10.34.127.195:5000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
