@@ -33,4 +33,5 @@
     <string name="portal">4H</string>
     <string name="postal_code">87654</string>
     <string name="city">City</string>
+    <string name="save">Save</string>
 </resources>
