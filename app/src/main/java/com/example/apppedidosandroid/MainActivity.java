@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -101,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     //endregion
+
+    public void moreGames(View view){
+        Intent intent = new Intent(this, ProfileSheet.class);
+        intent.putExtra("value", view.getTag().toString());
+        startActivity(intent);
+    }
     public void showProfileSheet() {
         SharedPreferences preferences;
         preferences = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
@@ -121,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         Call<List<Game>> callStrategyGames;
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.121.44:5000")
+                .baseUrl("http://10.34.127.195:5000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
@@ -172,4 +179,5 @@ public class MainActivity extends AppCompatActivity {
         Log.e("API_ERROR", "Response message: " + responseMessage);
         Toast.makeText(MainActivity.this, "No se encontraron juegos", Toast.LENGTH_SHORT).show();
     }
+
 }
