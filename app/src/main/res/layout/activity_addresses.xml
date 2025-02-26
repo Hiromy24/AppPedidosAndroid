@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".AddressesActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,23 +16,25 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
-            android:rotation="-180"
-            app:srcCompat="@drawable/chevron_right_solid" />
+            app:srcCompat="@drawable/chevron_left_solid" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="200dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:text="@string/billing" />
+            android:fontFamily="@font/geist_bold"
+            android:text="@string/myDirections"
+            android:textSize="@dimen/h3" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>

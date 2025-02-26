@@ -48,14 +48,13 @@ public class ProfileSheet extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile_sheet, container, false);
-
         ImageButton btnClose = view.findViewById(R.id.closeButton);
-        btnClose.setOnClickListener(v -> dismiss());
         FrameLayout photo = view.findViewById(R.id.photoLayout);
+
         preferences = requireActivity().getSharedPreferences(getString(R.string.prefs_file),
                 requireContext().MODE_PRIVATE);
         ImageView profileImage = view.findViewById(R.id.profileImageView);
-
+        btnClose.setOnClickListener(v -> dismiss());
         photo.setOnClickListener(v -> {
             if (checkPermissions()) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -130,13 +129,6 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         LinearLayout direction = view.findViewById(R.id.directionLayout);
 
         return view;
-    }
-
-    private Uri getImageUri(Context context, Bitmap bitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title", null);
-        return Uri.parse(path);
     }
 
     public String bitmapToBase64(Bitmap bitmap) {
