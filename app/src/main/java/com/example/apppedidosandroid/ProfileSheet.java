@@ -63,6 +63,7 @@ public class ProfileSheet extends BottomSheetDialogFragment {
                 requestPermissions();
             }
         });
+        
 
         photoAction = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
