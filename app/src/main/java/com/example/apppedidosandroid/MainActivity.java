@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         Call<List<Game>> callStrategyGames;
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.127.195:5000")
+                .baseUrl("http://10.34.125.231:5000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);

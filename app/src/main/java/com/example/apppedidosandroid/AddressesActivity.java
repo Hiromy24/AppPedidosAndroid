@@ -1,6 +1,7 @@
 package com.example.apppedidosandroid;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +12,6 @@ import com.example.apppedidosandroid.adapters.AddressAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddressesActivity extends AppCompatActivity {
@@ -20,6 +20,7 @@ public class AddressesActivity extends AppCompatActivity {
     private AddressAdapter addressAdapter;
     private List<Address> addressList;
     private FirebaseAuth mAuth;
+    private DaoAddress addressDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,9 @@ public class AddressesActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        ImageButton btnBack = findViewById(R.id.backImageButton);
+
+        btnBack.setOnClickListener(v -> finish());
 
         if (currentUser != null) {
             String email = currentUser.getEmail();
@@ -35,9 +39,7 @@ public class AddressesActivity extends AppCompatActivity {
             recyclerView = findViewById(R.id.itemRecyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-            addressList = new ArrayList<>();
-            // Fetch addresses from the database using the email
-            AddressDAO addressDAO = new AddressDAO();
+            addressDAO = new DaoAddress(this);
             addressList = addressDAO.getAllAddresses(email);
 
             addressAdapter = new AddressAdapter(addressList);

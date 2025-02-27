@@ -34,8 +34,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.Objects;
 
 public class ProfileSheet extends BottomSheetDialogFragment {
     private ActivityResultLauncher<Intent> photoAction;
@@ -50,10 +53,12 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.profile_sheet, container, false);
         ImageButton btnClose = view.findViewById(R.id.closeButton);
         FrameLayout photo = view.findViewById(R.id.photoLayout);
-
-        preferences = requireActivity().getSharedPreferences(getString(R.string.prefs_file),
-                requireContext().MODE_PRIVATE);
         ImageView profileImage = view.findViewById(R.id.profileImageView);
+        preferences = requireActivity().getSharedPreferences(getString(R.string.prefs_file),
+                Context.MODE_PRIVATE);
+        ImageButton directionBtn = view.findViewById(R.id.directionImageButton);
+        TextView direction = view.findViewById(R.id.directionTextView);
+
         btnClose.setOnClickListener(v -> dismiss());
         photo.setOnClickListener(v -> {
             if (checkPermissions()) {
@@ -63,19 +68,32 @@ public class ProfileSheet extends BottomSheetDialogFragment {
                 requestPermissions();
             }
         });
+        direction.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddressesActivity.class);
+            startActivity(intent);
+        });
+
+        directionBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddressesActivity.class);
+            startActivity(intent);
+        });
 
         photoAction = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if (result.getResultCode() == RESULT_OK) {
+                    if (result.getResultCode() == RESULT_OK){
                         Intent data = result.getData();
-                        Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                        assert data != null;
+                        Bitmap imageBitmap = (Bitmap) Objects.requireNonNull(data.getExtras())
+                                .get("data");
                         Glide.with(this)
                                 .load(imageBitmap)
                                 .transform(new CircleCrop())
                                 .into(profileImage);
                         String email = preferences.getString("email", "");
-                        preferences.edit().putString("photoUrlBit_" + email, bitmapToBase64(imageBitmap)).apply();
+                        assert imageBitmap != null;
+                        preferences.edit().putString("photoUrlBit_" + email,
+                                bitmapToBase64(imageBitmap)).apply();
                         preferences.edit().putString("photoUrl_" + email, "").apply();
                     }
                 }
@@ -100,7 +118,8 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         signOut.setPaintFlags(signOut.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         signOut.setOnClickListener(v -> {
-            SharedPreferences prefs = requireActivity().getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+            SharedPreferences prefs = requireActivity().getSharedPreferences(
+                    getString(R.string.prefs_file), Context.MODE_PRIVATE);
             prefs.edit().putString("email", null).apply();
             prefs.edit().putString("username", "").apply();
             dismiss();
@@ -126,8 +145,6 @@ public class ProfileSheet extends BottomSheetDialogFragment {
                     .into(profileImage);
         }
 
-        LinearLayout direction = view.findViewById(R.id.directionLayout);
-
         return view;
     }
 
@@ -144,7 +161,7 @@ public class ProfileSheet extends BottomSheetDialogFragment {
     }
 
     private boolean checkPermissions() {
-        int result = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA);
+        int result = ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.CAMERA);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
