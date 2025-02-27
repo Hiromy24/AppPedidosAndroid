@@ -13,14 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
             app:title="@string/app_title"
-            app:titleTextAppearance="@style/ToolbarTitle"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" >
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:titleTextAppearance="@style/ToolbarTitle"></com.google.android.material.appbar.MaterialToolbar>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

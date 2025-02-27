@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etEmail;
     EditText etPassword;
 
-    com.google.android.gms.common.SignInButton googleSignInButton;
+    Button googleSignInButton;
     private ActivityResultLauncher<Intent> signInGoogleLauncher;
     private static final String TAG = "LoginActivity";
 
