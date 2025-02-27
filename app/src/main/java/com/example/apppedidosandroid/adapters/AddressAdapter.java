@@ -51,7 +51,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull AddressAdapter.ViewHolder holder, int position) {
         Address address = addressList.get(position);
-        holder.nameTextView.setText(address.getName());
+        holder.nameTextView.setText(address.getFullName());
         holder.phoneTextView.setText(address.getPhone());
         holder.streetTextView.setText(address.getStreet());
         holder.streetNumberTextView.setText(address.getStreetNumber());
