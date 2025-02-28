@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.firebase.database)
     implementation (libs.mysql.connector.java)
     implementation (libs.com.github.bumptech.glide.glide)
     annotationProcessor (libs.compiler)

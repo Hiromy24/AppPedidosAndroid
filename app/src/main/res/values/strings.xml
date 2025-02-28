@@ -34,4 +34,7 @@
     <string name="postal_code">87654</string>
     <string name="city">City</string>
     <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="my_addresses">My addresses</string>
+    <string name="suscribe_to_notifications">Suscribe to notifications</string>
 </resources>
