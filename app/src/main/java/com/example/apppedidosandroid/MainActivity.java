@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
-                        Toast.makeText(this, "Login succeed", Toast.LENGTH_SHORT).show();
                         showProfileSheet();
                     }
                 });
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
-                Toast.makeText(MainActivity.this, "Error al obtener los juegos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Error obtaining games", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -169,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
-                Toast.makeText(MainActivity.this, "Error al obtener los juegos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Error obtaining games", Toast.LENGTH_SHORT).show();
             }
         });
         //endregion
