@@ -57,9 +57,26 @@ public class EditAddress extends AppCompatActivity {
         }
 
         saveButton.setOnClickListener(v -> showConfirmationDialog(addressId));
-        backButton.setOnClickListener(v -> finish());
+        backButton.setOnClickListener(v -> showExitDialog());
     }
 
+    private void showExitDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Confirm Exit")
+                .setMessage("Do you really want to exit or continue editing?")
+                .setPositiveButton("Exit", (dialogInterface, which) -> finish())
+                .setNegativeButton("Continue Editing", null)
+                .create();
+
+        dialog.setOnShowListener(dialogInterface -> {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat
+                    .getColor(this, android.R.color.black));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat
+                    .getColor(this, android.R.color.black));
+        });
+
+        dialog.show();
+    }
     private void showConfirmationDialog(String addressId) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Confirm Save")

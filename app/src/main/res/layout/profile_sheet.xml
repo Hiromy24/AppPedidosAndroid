@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Add direction" />
+                    android:text="@string/my_addresses" />
 
                 <ImageButton
                     android:id="@+id/directionImageButton"
