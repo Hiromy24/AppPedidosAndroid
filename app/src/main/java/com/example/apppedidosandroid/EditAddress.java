@@ -1,11 +1,14 @@
 package com.example.apppedidosandroid;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,6 +19,8 @@ public class EditAddress extends AppCompatActivity {
     private EditText fullNameEditText, phoneEditText, streetEditText,
             streetNumberEditText, postalCodeEditText, cityEditText, portalEditText;
     private Button saveButton;
+
+    private ImageButton backButton;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
 
@@ -35,10 +40,30 @@ public class EditAddress extends AppCompatActivity {
         postalCodeEditText = findViewById(R.id.postalEditText);
         cityEditText = findViewById(R.id.cityEditText);
         saveButton = findViewById(R.id.button);
+        backButton = findViewById(R.id.backImageButton);
 
-        saveButton.setOnClickListener(v -> saveAddress());
+        saveButton.setOnClickListener(v -> showConfirmationDialog());
+        backButton.setOnClickListener(v -> finish());
+
     }
 
+    private void showConfirmationDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Confirm Save")
+                .setMessage("Do you really want to save this address or continue editing?")
+                .setPositiveButton("Save", (dialogInterface, which) -> saveAddress())
+                .setNegativeButton("Continue Editing", null)
+                .create();
+
+        dialog.setOnShowListener(dialogInterface -> {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat
+                    .getColor(this, android.R.color.black));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat
+                    .getColor(this, android.R.color.black));
+        });
+
+        dialog.show();
+    }
     private void saveAddress() {
         String fullName = fullNameEditText.getText().toString().trim();
         String phone = phoneEditText.getText().toString().trim();

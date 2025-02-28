@@ -1,7 +1,5 @@
 package com.example.apppedidosandroid;
 
-import java.util.List;
-
 public class Address {
     private String fullName;
     private String phone;

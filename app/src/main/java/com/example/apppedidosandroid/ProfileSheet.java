@@ -81,7 +81,7 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         photoAction = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if (result.getResultCode() == RESULT_OK){
+                    if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         assert data != null;
                         Bitmap imageBitmap = (Bitmap) Objects.requireNonNull(data.getExtras())
