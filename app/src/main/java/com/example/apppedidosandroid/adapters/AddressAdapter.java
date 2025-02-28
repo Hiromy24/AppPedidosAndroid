@@ -1,5 +1,6 @@
 package com.example.apppedidosandroid.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.apppedidosandroid.EditAddress;
 import com.example.apppedidosandroid.R;
 import com.example.apppedidosandroid.Address;
 
@@ -33,7 +35,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView, phoneTextView, streetTextView, streetNumberTextView,
-                portalTextView, postalCodeTextView, cityProvinceTextView;
+                portalTextView, postalCodeTextView, cityProvinceTextView, editTextView;
         public ImageView addressImageView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -46,12 +48,19 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             portalTextView = itemView.findViewById(R.id.portalTextView);
             postalCodeTextView = itemView.findViewById(R.id.postalTextView);
             cityProvinceTextView = itemView.findViewById(R.id.cityProvincetextView);
+            editTextView = itemView.findViewById(R.id.editTextView);
         }
 
         public void bind(final Address address, final OnItemLongClickListener longClickListener) {
             itemView.setOnLongClickListener(v -> {
                 showPopupMenu(v, address, longClickListener);
                 return true;
+            });
+            editTextView.setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), EditAddress.class);
+                intent.putExtra("address", address);
+                intent.putExtra("addressId", address.getId());
+                v.getContext().startActivity(intent);
             });
         }
 

@@ -24,6 +24,7 @@ public class EditAddress extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
 
+    // EditAddress.java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,16 +43,28 @@ public class EditAddress extends AppCompatActivity {
         saveButton = findViewById(R.id.button);
         backButton = findViewById(R.id.backImageButton);
 
-        saveButton.setOnClickListener(v -> showConfirmationDialog());
-        backButton.setOnClickListener(v -> finish());
+        Address address = (Address) getIntent().getSerializableExtra("address");
+        String addressId = getIntent().getStringExtra("addressId");
 
+        if (address != null) {
+            fullNameEditText.setText(address.getFullName());
+            phoneEditText.setText(address.getPhone());
+            streetEditText.setText(address.getStreet());
+            streetNumberEditText.setText(address.getStreetNumber());
+            portalEditText.setText(address.getPortal());
+            postalCodeEditText.setText(address.getPostalCode());
+            cityEditText.setText(address.getCity());
+        }
+
+        saveButton.setOnClickListener(v -> showConfirmationDialog(addressId));
+        backButton.setOnClickListener(v -> finish());
     }
 
-    private void showConfirmationDialog() {
+    private void showConfirmationDialog(String addressId) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Confirm Save")
                 .setMessage("Do you really want to save this address or continue editing?")
-                .setPositiveButton("Save", (dialogInterface, which) -> saveAddress())
+                .setPositiveButton("Save", (dialogInterface, which) -> saveAddress(addressId))
                 .setNegativeButton("Continue Editing", null)
                 .create();
 
@@ -64,7 +77,8 @@ public class EditAddress extends AppCompatActivity {
 
         dialog.show();
     }
-    private void saveAddress() {
+
+    private void saveAddress(String addressId) {
         String fullName = fullNameEditText.getText().toString().trim();
         String phone = phoneEditText.getText().toString().trim();
         String street = streetEditText.getText().toString().trim();
@@ -73,27 +87,33 @@ public class EditAddress extends AppCompatActivity {
         String postalCode = postalCodeEditText.getText().toString().trim();
         String city = cityEditText.getText().toString().trim();
 
-        if (fullName.isEmpty() || phone.isEmpty() || street.isEmpty() || streetNumber.isEmpty() ||
-                portal.isEmpty() || postalCode.isEmpty() || city.isEmpty()) {
-            Toast.makeText(EditAddress.this, "All fields must be filled", Toast.LENGTH_SHORT).show();
+        if (fullName.isEmpty() || phone.isEmpty() || street.isEmpty() || streetNumber.isEmpty()
+                || portal.isEmpty() || postalCode.isEmpty() || city.isEmpty()) {
+            Toast.makeText(EditAddress.this, "All fields must be filled",
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
-            Toast.makeText(EditAddress.this, "User not logged in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditAddress.this, "User not logged in",
+                    Toast.LENGTH_SHORT).show();
             return;
         }
-        Address address = new Address(fullName, phone, street, streetNumber, portal, postalCode, city);
+
+        Address address = new Address(addressId, fullName, phone, street, streetNumber,
+                portal, postalCode, city);
 
         databaseReference.child("users").child(currentUser.getUid())
-                .child("addresses").push().setValue(address)
+                .child("addresses").child(addressId).setValue(address)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(EditAddress.this, "Address saved successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditAddress.this, "Address updated successfully",
+                                Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(EditAddress.this, "Failed to save address", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditAddress.this, "Failed to update address",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }

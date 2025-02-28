@@ -1,6 +1,10 @@
+// Address.java
 package com.example.apppedidosandroid;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
+    private String id;
     private String fullName;
     private String phone;
     private String street;
@@ -12,7 +16,8 @@ public class Address {
     public Address() {
     }
 
-    public Address(String fullName, String phone, String street, String streetNumber, String portal, String postalCode, String city) {
+    public Address(String id, String fullName, String phone, String street, String streetNumber, String portal, String postalCode, String city) {
+        this.id = id;
         this.fullName = fullName;
         this.phone = phone;
         this.street = street;
@@ -20,6 +25,14 @@ public class Address {
         this.portal = portal;
         this.postalCode = postalCode;
         this.city = city;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFullName() {
@@ -76,5 +89,19 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id='" + id + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", street='" + street + '\'' +
+                ", streetNumber='" + streetNumber + '\'' +
+                ", portal='" + portal + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }
