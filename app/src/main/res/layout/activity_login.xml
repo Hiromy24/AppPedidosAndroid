@@ -45,7 +45,7 @@
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_background"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="#E9E7E7"
         android:orientation="vertical">
 
         <LinearLayout
@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_background"
-                android:backgroundTint="#2E2D2D"
+                android:backgroundTint="@color/gray"
                 android:ems="10"
                 android:fontFamily="@font/geist_medium"
                 android:gravity="center_vertical"
@@ -97,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_background"
-                android:backgroundTint="#2E2D2D"
+                android:backgroundTint="@color/gray"
                 android:ems="10"
                 android:fontFamily="@font/geist_medium"
                 android:gravity="center_vertical"
@@ -154,11 +154,11 @@
             android:id="@+id/sign_in_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/yellow"
+            android:backgroundTint="@color/gray"
             android:fontFamily="@font/geist_semi_bold"
             android:text="@string/common_signin_button_text"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:icon="@drawable/google_logo"
             app:iconTintMode="multiply" />
 

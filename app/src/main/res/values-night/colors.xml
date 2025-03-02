@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FBF5F3</color>  <!-- Invertido para el tema oscuro -->
+    <color name="white">#0F0E0E</color>  <!-- Invertido para el tema oscuro -->
+    <color name="yellow">#FFF275</color> <!-- Puedes mantenerlo igual o cambiarlo -->
+    <color name="gray">#E0E0E0</color>  <!-- Un gris más claro para el tema oscuro -->
+</resources>
