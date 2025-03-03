@@ -40,7 +40,7 @@ public class EditAddress extends AppCompatActivity {
         portalEditText = findViewById(R.id.portalEditText);
         postalCodeEditText = findViewById(R.id.postalEditText);
         cityEditText = findViewById(R.id.cityEditText);
-        saveButton = findViewById(R.id.button);
+        saveButton = findViewById(R.id.saveAddressButton);
         backButton = findViewById(R.id.backImageButton);
 
         Address address = (Address) getIntent().getSerializableExtra("address");
