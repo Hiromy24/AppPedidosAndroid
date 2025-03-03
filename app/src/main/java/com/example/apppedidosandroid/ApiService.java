@@ -13,4 +13,8 @@ public interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("/buscar_app")
     Call<List<Game>> getGames(@Body Map<String, Object> appName);
+
+    @Headers("Content-Type: application/json")
+    @POST("/info_app")
+    Call<List<Game>> getGameInfo(@Body Map<String, Object> gameInfo);
 }

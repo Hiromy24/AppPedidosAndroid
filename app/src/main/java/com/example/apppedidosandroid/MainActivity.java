@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.apppedidosandroid.adapters.PopularItemAdapter;
 import com.example.apppedidosandroid.adapters.RectangularItemAdapter;
 import com.example.apppedidosandroid.adapters.SquareItemAdapter;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -36,7 +37,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> loginLauncher;
-    RecyclerView recyclerView, recyclerView1;
+    RecyclerView recyclerView, recyclerView1, recyclerView3;
     MaterialToolbar topAppBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     void linkComponents(){
         recyclerView = findViewById(R.id.squareItemRecyclerView);
         recyclerView1 = findViewById(R.id.rectangularItemRecyclerView);
+        recyclerView3 = findViewById(R.id.popularItemRecyclerView);
         topAppBar = findViewById(R.id.topAppBar);
     }
     //region RecyclerView
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     void setRecyclerLayout(){
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView3.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
     void setRecyclerItemDecoration(){
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
@@ -123,31 +126,37 @@ public class MainActivity extends AppCompatActivity {
         ApiService apiService;
         Map<String, Object> request;
         Map<String, Object> request1;
+        Map<String, Object> request2;
         Call<List<Game>> callRandomGames;
         Call<List<Game>> callStrategyGames;
+        Call<List<Game>> callPopularGames;
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.125.231:5000")
+                .baseUrl("http://10.34.125.220:5000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
         // Llamada a la API (aquí debes enviar el nombre de la app o dejarlo vacío para obtener juegos aleatorios)
         request = Map.of("app_name", "");
         request1 = Map.of("category", "Strategy", "n_hits", 12);
+        request2 = Map.of("app_names", List.of("Among Us", "Bullet Echo", "Roblox",
+                "JCC Pokemon Pocket", "Wild Rift"));
         callRandomGames = apiService.getGames(request);
         callStrategyGames = apiService.getGames(request1);
+        callPopularGames = apiService.getGameInfo(request2);
 
         //region Callbacks
-        callRandomGames.enqueue(new Callback<List<Game>>() {
+        callRandomGames.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
                 if (!response.isSuccessful() && response.body() == null) {
                     response(response.code(), response.message());
                     return;
                 }
-                    recyclerView.setAdapter(new SquareItemAdapter(response.body()));
-                    new PagerSnapHelper().attachToRecyclerView(recyclerView);
+                recyclerView.setAdapter(new SquareItemAdapter(response.body()));
+                new PagerSnapHelper().attachToRecyclerView(recyclerView);
             }
+
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
@@ -155,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        callStrategyGames.enqueue(new Callback<List<Game>>() {
+        callStrategyGames.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
                 if (!response.isSuccessful() && response.body() == null) {
@@ -165,6 +174,25 @@ public class MainActivity extends AppCompatActivity {
                 recyclerView1.setAdapter(new RectangularItemAdapter(response.body()));
                 new PagerSnapHelper().attachToRecyclerView(recyclerView1);
             }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
+                Log.e("API_ERROR", "Error: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Error obtaining games", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        callPopularGames.enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
+                if (!response.isSuccessful() && response.body() == null) {
+                    response(response.code(), response.message());
+                    return;
+                }
+                recyclerView3.setAdapter(new PopularItemAdapter(response.body()));
+                new PagerSnapHelper().attachToRecyclerView(recyclerView3);
+            }
+
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
