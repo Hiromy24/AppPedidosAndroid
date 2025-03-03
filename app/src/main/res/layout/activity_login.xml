@@ -18,6 +18,7 @@
         android:gravity="center_vertical"
         android:text="@string/login"
         android:textAlignment="viewStart"
+        android:textColor="@color/black"
         android:textSize="@dimen/h2" />
 
     <ImageView
@@ -36,6 +37,7 @@
         android:fontFamily="@font/geist_semi_bold"
         android:text="@string/app_title"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="@dimen/h2" />
 
     <LinearLayout
@@ -45,7 +47,7 @@
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_background"
-        android:backgroundTint="#E9E7E7"
+        android:backgroundTint="@color/white_90"
         android:orientation="vertical">
 
         <LinearLayout
@@ -61,6 +63,7 @@
                 android:fontFamily="@font/geist_semi_bold"
                 android:gravity="right|center_vertical"
                 android:text="@string/email"
+                android:textColor="@color/black"
                 android:textSize="@dimen/h4" />
 
             <EditText
@@ -90,6 +93,7 @@
                 android:fontFamily="@font/geist_semi_bold"
                 android:gravity="right|center_vertical"
                 android:text="@string/password"
+                android:textColor="@color/black"
                 android:textSize="@dimen/h4" />
 
             <EditText
@@ -148,7 +152,8 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/geist_semi_bold"
             android:gravity="center"
-            android:text="@string/or" />
+            android:text="@string/or"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/sign_in_button"
