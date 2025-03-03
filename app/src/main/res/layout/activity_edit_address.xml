@@ -23,13 +23,14 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:fontFamily="@font/geist_bold"
+            android:gravity="center_vertical"
             android:text="@string/myDirections"
-            android:textSize="@dimen/h3" />
+            android:textSize="@dimen/h2" />
 
     </LinearLayout>
 
@@ -37,83 +38,129 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
-        android:background="#BCBCBC"
+        android:layout_marginHorizontal="10dp"
         android:orientation="vertical">
-
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/PersonalInfoTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/personInfo" />
-
+            android:text="@string/personInfo"
+            android:textSize="@dimen/h3" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_border"
+            android:backgroundTint="@color/black"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
         <EditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:hint="@string/full_name_hint"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <EditText
             android:id="@+id/phoneEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:hint="@string/phone_hint"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#BCBCBC"
+        android:layout_marginHorizontal="10dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/AddressesTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/directions" />
+            android:text="@string/directions"
+            android:textSize="@dimen/h3" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_border"
+            android:backgroundTint="@color/black"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
 
         <EditText
             android:id="@+id/streetEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:hint="@string/street"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <EditText
             android:id="@+id/numberEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:hint="@string/street_number"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <EditText
             android:id="@+id/portalEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:hint="@string/portal"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <EditText
             android:id="@+id/postalEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:hint="@string/postal_code"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <EditText
             android:id="@+id/cityEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:hint="@string/city"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
     </LinearLayout>
 

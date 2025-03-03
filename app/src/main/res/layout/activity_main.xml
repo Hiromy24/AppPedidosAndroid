@@ -52,7 +52,6 @@
                     android:layout_marginHorizontal="10dp"
                     android:background="@drawable/bottom_border"
                     >
-
                 </LinearLayout>
 
                 <Space
