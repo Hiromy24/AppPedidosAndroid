@@ -49,11 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        btnLogin = findViewById(R.id.loginButton);
-        btnRegister = findViewById(R.id.registerButton);
-        etEmail = findViewById(R.id.emailEditText);
-        etPassword = findViewById(R.id.pwdEditText);
-        googleSignInButton = findViewById(R.id.sign_in_button);
+        linkComponents();
 
         //region Launcher for Google Sign In
         signInGoogleLauncher = registerForActivityResult(
@@ -156,5 +152,12 @@ public class LoginActivity extends AppCompatActivity {
                 Intent signInIntent = googleSignInClient.getSignInIntent();
                 signInGoogleLauncher.launch(signInIntent);
         });
+    }
+    void linkComponents() {
+        btnLogin = findViewById(R.id.loginButton);
+        btnRegister = findViewById(R.id.registerButton);
+        etEmail = findViewById(R.id.emailEditText);
+        etPassword = findViewById(R.id.pwdEditText);
+        googleSignInButton = findViewById(R.id.sign_in_button);
     }
 }
