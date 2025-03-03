@@ -75,7 +75,8 @@
                 android:hint="@string/full_name_hint"
                 android:inputType="text"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/h4" />
 
             <Space
                 android:layout_width="match_parent"
@@ -92,7 +93,8 @@
                 android:hint="@string/phone_hint"
                 android:inputType="text"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/h4" />
         </LinearLayout>
 
         <LinearLayout
@@ -121,8 +123,9 @@
                 android:id="@+id/cityTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/geist_medium"
-                android:text="City" />
+                android:fontFamily="@font/geist_semi_bold"
+                android:text="City"
+                android:textSize="@dimen/h4" />
 
             <EditText
                 android:id="@+id/cityEditText"
@@ -135,7 +138,8 @@
                 android:hint="@string/city"
                 android:inputType="text"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/h4" />
 
             <Space
                 android:layout_width="match_parent"
@@ -145,8 +149,9 @@
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/geist_medium"
-                android:text="Street" />
+                android:fontFamily="@font/geist_semi_bold"
+                android:text="Street"
+                android:textSize="@dimen/h4" />
 
             <EditText
                 android:id="@+id/streetEditText"
@@ -159,7 +164,8 @@
                 android:hint="@string/street"
                 android:inputType="text"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/h4" />
 
             <Space
                 android:layout_width="match_parent"
@@ -182,8 +188,9 @@
                         android:id="@+id/textView8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/geist_medium"
-                        android:text="Number" />
+                        android:fontFamily="@font/geist_semi_bold"
+                        android:text="Number"
+                        android:textSize="@dimen/h4" />
 
                     <EditText
                         android:id="@+id/numberEditText"
@@ -195,7 +202,8 @@
                         android:hint="@string/street_number"
                         android:inputType="number"
                         android:textColor="@color/white"
-                        android:textColorHint="@color/white" />
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/h4" />
                 </LinearLayout>
 
                 <Space
@@ -213,8 +221,9 @@
                         android:id="@+id/textView9"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/geist_medium"
-                        android:text="Portal" />
+                        android:fontFamily="@font/geist_semi_bold"
+                        android:text="Portal"
+                        android:textSize="@dimen/h4" />
 
                     <EditText
                         android:id="@+id/portalEditText"
@@ -226,7 +235,8 @@
                         android:hint="@string/portal"
                         android:inputType="text"
                         android:textColor="@color/white"
-                        android:textColorHint="@color/white" />
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/h4" />
                 </LinearLayout>
 
                 <Space
@@ -244,8 +254,9 @@
                         android:id="@+id/textView10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/geist_medium"
-                        android:text="Postal Code" />
+                        android:fontFamily="@font/geist_semi_bold"
+                        android:text="Postal Code"
+                        android:textSize="@dimen/h4" />
 
                     <EditText
                         android:id="@+id/postalEditText"
@@ -257,7 +268,8 @@
                         android:hint="@string/postal_code"
                         android:inputType="text"
                         android:textColor="@color/white"
-                        android:textColorHint="@color/white" />
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/h4" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -275,6 +287,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
             android:backgroundTintMode="add"
+            android:fontFamily="@font/geist_semi_bold"
             android:text="Save" />
 
     </LinearLayout>
