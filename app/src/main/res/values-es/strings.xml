@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AppPedidosAndroid</string>
+    <string name="prefs_file">com.example.apppedidosandroid.PREFERENCE_FILE_KEY</string>
+    <string name="profile">Perfil</string>
+    <string name="notifications">Recibir Notificaciones</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="email">Correo</string>
+    <string name="email_hint">example@gmail.com</string>
+    <string name="password">Contraseña</string>
+    <string name="password_hint">********</string>
+    <string name="or">O</string>
+    <string name="register">Registrar</string>
+    <string name="addDirections">Añadir direccion</string>
+    <string name="directions">Direcciones</string>
+    <string name="billing">Direccion de facturacion</string>
+    <string name="app_title">LootBox Store</string>
+    <string name="strategy">Estrategia</string>
+    <string name="foryou">Para ti</string>
+    <string name="SearchIconDescription">Busca por un producto</string>
+    <string name="CartIconDescription">Mira tu carrito</string>
+    <string name="ProfileIconDescription">Abre tu perfil</string>
+    <string name="back">atrás</string>
+    <string name="myDirections">Direcciones de facturacion</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="edit">Editar</string>
+    <string name="personInfo">Informacion Personal</string>
+    <string name="full_name_hint">Nombre completo</string>
+    <string name="phone_hint">634512890</string>
+    <string name="street">Nombre de la calle</string>
+    <string name="street_number">23</string>
+    <string name="portal">4H</string>
+    <string name="postal_code">87654</string>
+    <string name="city">Ciudad</string>
+    <string name="save">Guardar</string>
+</resources>
