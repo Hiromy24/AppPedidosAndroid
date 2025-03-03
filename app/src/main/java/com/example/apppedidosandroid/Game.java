@@ -8,6 +8,8 @@ public class Game {
     private String Descripcion;
     private List<String> Imagenes;
 
+    private String HeaderImage;
+
     private String Categoria;
 
     @SerializedName("Puntuación")
@@ -20,6 +22,13 @@ public class Game {
 
     public void setNombre(String nombre) {
         this.Nombre = nombre;
+    }
+    public String getHeaderImage() {
+        return HeaderImage;
+    }
+
+    public void setHeaderImage(String headerImage) {
+        this.HeaderImage = headerImage;
     }
 
     public String getDescripcion() {
