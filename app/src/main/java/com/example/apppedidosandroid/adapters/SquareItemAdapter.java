@@ -1,5 +1,7 @@
 package com.example.apppedidosandroid.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.apppedidosandroid.Game;
+import com.example.apppedidosandroid.InstallGameActivity;
 import com.example.apppedidosandroid.R;
 
 import java.util.List;
@@ -18,13 +21,15 @@ import java.util.List;
 public class SquareItemAdapter extends RecyclerView.Adapter<SquareItemAdapter.ViewHolder> {
 
     private final List<Game> games;
+    private final Context context;
 
-    public SquareItemAdapter(List<Game> games) {
+    public SquareItemAdapter(List<Game> games, Context context) {
         this.games = games;
+        this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView, descriptionTextView, ratingTextView;
+        TextView nameTextView, ratingTextView;
         ImageView gameImageView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -57,6 +62,12 @@ public class SquareItemAdapter extends RecyclerView.Adapter<SquareItemAdapter.Vi
             // Imagen por defecto si no hay imágenes
             holder.gameImageView.setImageResource(R.drawable.ic_launcher_background);
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, InstallGameActivity.class);
+            intent.putExtra("game_nombre", game.getNombre());
+            context.startActivity(intent);
+        });
     }
 
     @Override

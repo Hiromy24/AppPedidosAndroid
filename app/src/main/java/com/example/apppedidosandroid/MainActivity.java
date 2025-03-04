@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         Call<List<Game>> callPopularGames;
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.125.220:5000")
+                .baseUrl("http://10.34.127.121:5000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
@@ -153,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
                     response(response.code(), response.message());
                     return;
                 }
-                recyclerView.setAdapter(new SquareItemAdapter(response.body()));
+                recyclerView.setAdapter(new SquareItemAdapter(response.body(),
+                        MainActivity.this));
                 new PagerSnapHelper().attachToRecyclerView(recyclerView);
             }
 
@@ -171,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
                     response(response.code(), response.message());
                     return;
                 }
-                recyclerView1.setAdapter(new RectangularItemAdapter(response.body()));
+                recyclerView1.setAdapter(new RectangularItemAdapter(response.body(),
+                        MainActivity.this));
                 new PagerSnapHelper().attachToRecyclerView(recyclerView1);
             }
 
@@ -189,7 +191,8 @@ public class MainActivity extends AppCompatActivity {
                     response(response.code(), response.message());
                     return;
                 }
-                recyclerView3.setAdapter(new PopularItemAdapter(response.body()));
+                recyclerView3.setAdapter(new PopularItemAdapter(response.body(),
+                        MainActivity.this));
                 new PagerSnapHelper().attachToRecyclerView(recyclerView3);
             }
 

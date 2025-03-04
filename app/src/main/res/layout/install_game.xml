@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -21,9 +22,9 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/gameImageView"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:layout_weight="1"
                     tools:srcCompat="@tools:sample/avatars" />
 
@@ -113,9 +114,23 @@
                 android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/carouselRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="200dp"
+                    android:orientation="horizontal" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description" />
+
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aqui va una descripcion del juego sacado de la api" />
         </LinearLayout>
     </ScrollView>
 

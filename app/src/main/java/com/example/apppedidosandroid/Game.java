@@ -10,6 +10,8 @@ public class Game {
 
     private String HeaderImage;
 
+    private String Video;
+
     private String Categoria;
 
     @SerializedName("Puntuación")
@@ -62,6 +64,14 @@ public class Game {
 
     public void setCategorias(String categorias) {
         this.Categoria = categorias;
+    }
+
+    public String getVideo() {
+        return Video;
+    }
+
+    public void setVideo(String video) {
+        this.Video = video;
     }
 
 }

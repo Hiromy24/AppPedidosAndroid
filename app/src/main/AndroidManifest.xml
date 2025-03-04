@@ -22,6 +22,9 @@
         android:theme="@style/Theme.AppPedidosAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".InstallGameActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditAddress"
             android:exported="false" />
         <activity
