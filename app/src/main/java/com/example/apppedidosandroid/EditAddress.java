@@ -106,31 +106,31 @@ public class EditAddress extends AppCompatActivity {
 
         if (fullName.isEmpty() || phone.isEmpty() || street.isEmpty() || streetNumber.isEmpty()
                 || portal.isEmpty() || postalCode.isEmpty() || city.isEmpty()) {
-            Toast.makeText(EditAddress.this, "All fields must be filled",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditAddress.this, "All fields must be filled", Toast.LENGTH_SHORT).show();
             return;
         }
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
-            Toast.makeText(EditAddress.this, "User not logged in",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditAddress.this, "User not logged in", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Address address = new Address(addressId, fullName, phone, street, streetNumber,
-                portal, postalCode, city);
+        DatabaseReference userAddressesRef = databaseReference.child("users").child(currentUser.getUid()).child("addresses");
 
-        databaseReference.child("users").child(currentUser.getUid())
-                .child("addresses").child(addressId).setValue(address)
+        if (addressId == null || addressId.isEmpty()) {
+            addressId = userAddressesRef.push().getKey();
+        }
+
+        Address address = new Address(addressId, fullName, phone, street, streetNumber, portal, postalCode, city);
+
+        userAddressesRef.child(addressId).setValue(address)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(EditAddress.this, "Address updated successfully",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditAddress.this, "Address saved successfully", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(EditAddress.this, "Failed to update address",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditAddress.this, "Failed to save address", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
