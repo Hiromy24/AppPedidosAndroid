@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="@string/street"
             android:textColor="@color/white"
-            android:textSize="@dimen/h2" />
+            android:textSize="@dimen/h3" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,7 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/postal_code"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/h4" />
         </LinearLayout>
 
     </LinearLayout>
@@ -98,7 +99,8 @@
             android:layout_weight="10"
             android:backgroundTint="@color/white_90"
             android:text="@string/edit"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/h4" />
 
     </LinearLayout>
 
