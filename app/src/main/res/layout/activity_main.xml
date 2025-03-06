@@ -40,7 +40,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView54"
+                    android:id="@+id/topGamesTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
@@ -78,6 +78,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="50"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
@@ -86,13 +87,12 @@
                     android:fontFamily="@font/geist_medium"
                     android:text="@string/foryou"
                     android:textSize="@dimen/h2" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/bottom_border"
-                    >
-                </LinearLayout>
+                    android:background="@drawable/bottom_border"></LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
@@ -111,13 +111,155 @@
 
             </LinearLayout>
 
-            <Space
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/paidTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_weight="4"
+                            android:fontFamily="@font/geist_medium"
+                            android:text="@string/paid"
+                            android:textSize="@dimen/h2" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="6"
+                            android:gravity="center"
+                            android:tag="@string/paid"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/seeMorePaidTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:tag="@string/paid"
+                                android:text="@string/see_more"
+                                android:textAlignment="textEnd"
+                                tools:ignore="NestedWeights" />
+
+                            <ImageButton
+                                android:id="@+id/paidImageButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="#00000000"
+                                android:tag="@string/paid"
+                                app:srcCompat="@drawable/chevron_right_solid" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@drawable/bottom_border" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rectangularPaidItemRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:id="@+id/actionTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/geist_medium"
+                        android:text="@string/action"
+                        android:textSize="@dimen/h2" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:gravity="center"
+                        android:tag="@string/action"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/seeMoreActionTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:tag="@string/action"
+                            android:text="@string/see_more"
+                            android:textAlignment="textEnd"
+                            tools:ignore="NestedWeights" />
+
+                        <ImageButton
+                            android:id="@+id/actionImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00000000"
+                            android:tag="@string/action"
+                            app:srcCompat="@drawable/chevron_right_solid" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/bottom_border" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rectangularActionItemRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="0"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -127,7 +269,80 @@
                     android:weightSum="10">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/multiTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/geist_medium"
+                        android:text="@string/multiplayer_games"
+                        android:textSize="@dimen/h2" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:gravity="center"
+                        android:tag="@string/multiplayer_games"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/seeMoreMultiTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:tag="@string/multiplayer_games"
+                            android:text="@string/see_more"
+                            android:textAlignment="textEnd"
+                            tools:ignore="NestedWeights" />
+
+                        <ImageButton
+                            android:id="@+id/multiImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00000000"
+                            android:tag="@string/action"
+                            app:srcCompat="@drawable/chevron_right_solid" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/bottom_border" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rectangularItemRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:id="@+id/strategyTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
@@ -141,23 +356,97 @@
                         android:layout_height="match_parent"
                         android:layout_weight="6"
                         android:gravity="center"
+                        android:tag="@string/strategy"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textView5"
+                            android:id="@+id/seeMoreStrategyTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/see_more"
+                            android:tag="@string/strategy"
                             android:textAlignment="textEnd"
                             tools:ignore="NestedWeights" />
 
                         <ImageButton
-                            android:id="@+id/imageButton3"
+                            android:id="@+id/seeMoreStrategyImageButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:backgroundTint="#00000000"
                             android:tag="@string/strategy"
+                            app:srcCompat="@drawable/chevron_right_solid" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/bottom_border" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rectangularStrategyItemRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:id="@+id/offlineTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/geist_medium"
+                        android:text="@string/offline_games"
+                        android:textSize="@dimen/h2" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:gravity="center"
+                        android:tag="@string/offline_games"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/seeMoreOfflineTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/see_more"
+                            android:tag="@string/offline_games"
+                            android:textAlignment="textEnd"
+                            tools:ignore="NestedWeights" />
+
+                        <ImageButton
+                            android:id="@+id/offlineImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00000000"
+                            android:tag="@string/offline_games"
                             app:srcCompat="@drawable/chevron_right_solid" />
                     </LinearLayout>
                 </LinearLayout>
@@ -179,7 +468,7 @@
                     android:orientation="horizontal">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rectangularItemRecyclerView"
+                        android:id="@+id/rectangularOfflineItemRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>

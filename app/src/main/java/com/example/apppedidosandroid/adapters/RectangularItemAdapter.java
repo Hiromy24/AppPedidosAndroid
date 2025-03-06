@@ -80,8 +80,6 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
                 Glide.with(imageView.getContext())
                         .load(game.getImagenes().get(0))
                         .into(imageView);
-            } else {
-                imageView.setImageResource(R.drawable.ic_launcher_background);
             }
 
             imageView.setOnClickListener(v -> {
@@ -89,11 +87,6 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
                 intent.putExtra("game_nombre", game.getNombre());
                 context.startActivity(intent);
             });
-        } else {
-            nameTextView.setText("");
-            categoryTextView.setText("");
-            ratingTextView.setText("");
-            imageView.setImageResource(R.drawable.ic_launcher_background);
         }
     }
 
