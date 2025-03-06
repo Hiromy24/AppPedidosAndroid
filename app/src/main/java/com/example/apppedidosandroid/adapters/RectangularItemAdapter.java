@@ -1,5 +1,7 @@
 package com.example.apppedidosandroid.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.apppedidosandroid.Game;
+import com.example.apppedidosandroid.InstallGameActivity;
 import com.example.apppedidosandroid.R;
 
 import java.util.List;
 
 public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItemAdapter.ViewHolder> {
 
-
     private List<Game> games;
+    private Context context;
 
-    public RectangularItemAdapter(List<Game> games) {
+    public RectangularItemAdapter(List<Game> games, Context context) {
         this.games = games;
+        this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -79,6 +83,12 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
             } else {
                 imageView.setImageResource(R.drawable.ic_launcher_background);
             }
+
+            imageView.setOnClickListener(v -> {
+                Intent intent = new Intent(context, InstallGameActivity.class);
+                intent.putExtra("game_nombre", game.getNombre());
+                context.startActivity(intent);
+            });
         } else {
             nameTextView.setText("");
             categoryTextView.setText("");

@@ -1,5 +1,7 @@
 package com.example.apppedidosandroid.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.apppedidosandroid.Game;
+import com.example.apppedidosandroid.InstallGameActivity;
 import com.example.apppedidosandroid.R;
 
 import java.util.List;
@@ -18,12 +21,14 @@ import java.util.List;
 public class PopularItemAdapter extends RecyclerView.Adapter<PopularItemAdapter.ViewHolder> {
 
     private List<Game> games;
+    private Context context;
 
     // Fixed download values for the first 5 items.
     private final String[] fixedDownloads = {"500M+", "10M+", "1B+", "10M+", "50M+"};
 
-    public PopularItemAdapter(List<Game> games) {
+    public PopularItemAdapter(List<Game> games, Context context) {
         this.games = games;
+        this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -64,7 +69,11 @@ public class PopularItemAdapter extends RecyclerView.Adapter<PopularItemAdapter.
         holder.gameNameTextView.setText(game.getNombre());
         holder.gameCategoriesTextView.setText(game.getCategorias());
         holder.ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
-
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, InstallGameActivity.class);
+            intent.putExtra("game_nombre", game.getNombre());
+            context.startActivity(intent);
+        });
         if (game.getImagenes() != null && !game.getImagenes().isEmpty()) {
             Glide.with(holder.gameImageView.getContext())
                     .load(game.getImagenes().get(0))
