@@ -3,9 +3,9 @@ package com.example.apppedidosandroid.adapters;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -34,21 +34,21 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTextView, phoneTextView, streetTextView, streetNumberTextView,
-                portalTextView, postalCodeTextView, cityProvinceTextView, editTextView;
+        public TextView nameTextView, phoneTextView, streetTextView, postalCodeTextView, cityProvinceTextView;
         public ImageView addressImageView;
+
+        public Button editButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             addressImageView = itemView.findViewById(R.id.addressImage);
+            streetTextView = itemView.findViewById(R.id.streetTextView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             phoneTextView = itemView.findViewById(R.id.phoneTextView);
             streetTextView = itemView.findViewById(R.id.streetTextView);
-            streetNumberTextView = itemView.findViewById(R.id.numbertextView);
-            portalTextView = itemView.findViewById(R.id.portalTextView);
             postalCodeTextView = itemView.findViewById(R.id.postalTextView);
             cityProvinceTextView = itemView.findViewById(R.id.cityProvincetextView);
-            editTextView = itemView.findViewById(R.id.editTextView);
+            editButton = itemView.findViewById(R.id.editButton);
         }
 
         public void bind(final Address address, final OnItemLongClickListener longClickListener) {
@@ -56,7 +56,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                 showPopupMenu(v, address, longClickListener);
                 return true;
             });
-            editTextView.setOnClickListener(v -> {
+            editButton.setOnClickListener(v -> {
                 Intent intent = new Intent(v.getContext(), EditAddress.class);
                 intent.putExtra("address", address);
                 intent.putExtra("addressId", address.getId());
@@ -91,9 +91,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         Address address = addressList.get(position);
         holder.nameTextView.setText(address.getFullName());
         holder.phoneTextView.setText(address.getPhone());
-        holder.streetTextView.setText(address.getStreet());
-        holder.streetNumberTextView.setText(address.getStreetNumber());
-        holder.portalTextView.setText(address.getPortal());
+        holder.streetTextView.setText(String.format("%s | %s | %s", address.getStreet(), address.getStreetNumber(), address.getPortal()));
         holder.postalCodeTextView.setText(address.getPostalCode());
         holder.cityProvinceTextView.setText(address.getCity());
         holder.bind(address, longClickListener);
