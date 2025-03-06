@@ -129,8 +129,7 @@
             <TextView
                 android:id="@+id/descriptionTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Aqui va una descripcion del juego sacado de la api" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 

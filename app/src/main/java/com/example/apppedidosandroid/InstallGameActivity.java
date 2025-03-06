@@ -61,7 +61,7 @@ public class InstallGameActivity extends AppCompatActivity {
 
     private void fetchGameDetails(String gameName) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.127.121:5000")
+                .baseUrl("http://10.34.124.156:5000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
@@ -92,7 +92,7 @@ public class InstallGameActivity extends AppCompatActivity {
         gameCategoriesTextView.setText(game.getCategorias());
         descriptionTExtView.setText(game.getDescripcion());
         ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
-        downloadsTextView.setText("500M+");
+        downloadsTextView.setText(game.getDescargas());
 
         if (game.getHeaderImage() != null) {
             Glide.with(this).load(game.getImagenes().get(0)).into(iconImageView);

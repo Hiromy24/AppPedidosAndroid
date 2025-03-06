@@ -17,6 +17,8 @@ public class Game {
     @SerializedName("Puntuación")
     private double Puntuacion;
 
+    private String Descargas;
+
     // Getters and Setters
     public String getNombre() {
         return Nombre;
@@ -72,6 +74,14 @@ public class Game {
 
     public void setVideo(String video) {
         this.Video = video;
+    }
+
+    public String getDescargas() {
+        return Descargas;
+    }
+
+    public void setDescargas(String descargas) {
+        this.Descargas = descargas;
     }
 
 }

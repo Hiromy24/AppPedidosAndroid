@@ -1,9 +1,12 @@
+// InstallGameAdapter.java
 package com.example.apppedidosandroid.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -31,11 +34,7 @@ public class InstallGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return TYPE_VIDEO;
-        } else {
-            return TYPE_IMAGE;
-        }
+        return (position == 0) ? TYPE_VIDEO : TYPE_IMAGE;
     }
 
     @NonNull
@@ -57,21 +56,20 @@ public class InstallGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (holder.getItemViewType() == TYPE_VIDEO) {
             VideoViewHolder videoHolder = (VideoViewHolder) holder;
             String videoUrl = (String) items.get(position);
+
             if (videoUrl != null && !videoUrl.isEmpty()) {
-                videoHolder.webView.setWebViewClient(new WebViewClient());
-                WebSettings webSettings = videoHolder.webView.getSettings();
-                webSettings.setJavaScriptEnabled(true);
-                videoHolder.webView.loadUrl(videoUrl + "&autoplay=1");
+                String iframeHtml = "<html><body><iframe width=\"100%\" height=\"100%\" " +
+                        "src=\"" + videoUrl + "\" " +
+                        "frameborder=\"0\" allowfullscreen></iframe></body></html>";
+
+                videoHolder.webView.loadData(iframeHtml, "text/html", "utf-8");
             }
         } else {
             ImageViewHolder imageHolder = (ImageViewHolder) holder;
-            int imagePosition = position - 1; // Adjust position to skip the first item
-            if (imagePosition < items.size() && items.get(imagePosition) instanceof String) {
-                String imageUrl = (String) items.get(imagePosition);
-                Glide.with(imageHolder.imageView.getContext())
-                        .load(imageUrl)
-                        .into(imageHolder.imageView);
-            }
+            String imageUrl = (String) items.get(position);
+            Glide.with(imageHolder.imageView.getContext())
+                    .load(imageUrl)
+                    .into(imageHolder.imageView);
         }
     }
 
@@ -86,6 +84,11 @@ public class InstallGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
             webView = itemView.findViewById(R.id.webView);
+            WebSettings webSettings = webView.getSettings();
+            webSettings.setJavaScriptEnabled(true);
+            webSettings.setDomStorageEnabled(true);
+            webView.setBackgroundColor(0);
+            webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
         }
     }
 
