@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -19,7 +21,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apppedidosandroid.adapters.RectangularItemAdapter;
 import com.example.apppedidosandroid.adapters.SingleRectangularItemAdapter;
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -38,6 +39,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
+    private View progressBarContainer;
+    private int apiCallsPending = 1; // Number of API calls to wait for
 
     MaterialToolbar topAppBar;
 
@@ -59,6 +63,9 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        progressBar = findViewById(R.id.progressBar);
+        progressBarContainer = findViewById(R.id.progressBarContainer);
+
         String gameName = getIntent().getStringExtra("gameNames");
         if (gameName != null) {
             fetchGameDetails(gameName);
@@ -71,6 +78,7 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 });
     }
+
     //region ToolBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,6 +104,7 @@ public class SearchActivity extends AppCompatActivity {
 
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -108,6 +117,7 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     //endregion
+
     public void showProfileSheet() {
         SharedPreferences preferences;
         preferences = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
@@ -153,14 +163,23 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 }
                 recyclerView.setAdapter(new SingleRectangularItemAdapter(filteredGames, SearchActivity.this));
+                checkApiCallsCompletion();
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 Toast.makeText(SearchActivity.this, "Error obtaining games", Toast.LENGTH_SHORT).show();
+                checkApiCallsCompletion();
             }
         });
+    }
+
+    private void checkApiCallsCompletion() {
+        apiCallsPending--;
+        if (apiCallsPending == 0) {
+            progressBarContainer.setVisibility(View.GONE);
+        }
     }
 
     void response(int responseCode, String responseMessage) {

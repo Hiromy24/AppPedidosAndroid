@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation (libs.mysql.connector.java)
     implementation (libs.com.github.bumptech.glide.glide)
+    implementation(libs.swiperefreshlayout)
     annotationProcessor (libs.compiler)
     implementation (libs.retrofit)
     implementation (libs.converter.gson)

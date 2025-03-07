@@ -2,7 +2,9 @@ package com.example.apppedidosandroid;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,10 @@ public class InstallGameActivity extends AppCompatActivity {
             descriptionTExtView;
     private ImageView iconImageView;
     private RecyclerView carouselRecyclerView;
+    private ProgressBar progressBar;
+    private View progressBarContainer;
+
+    private int apiCallsPending = 1; // Number of API calls to wait for
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,12 @@ public class InstallGameActivity extends AppCompatActivity {
         iconImageView = findViewById(R.id.gameImageView);
         carouselRecyclerView = findViewById(R.id.carouselRecyclerView);
         carouselRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBarContainer = findViewById(R.id.progressBarContainer);
+
+        // Ensure the ProgressBar is visible at the start
+        progressBarContainer.setVisibility(View.VISIBLE);
 
         String gameName = getIntent().getStringExtra("game_nombre");
         fetchGameDetails(gameName);
@@ -77,12 +89,14 @@ public class InstallGameActivity extends AppCompatActivity {
                 }
                 Game game = response.body().get(0);
                 setGameDetails(game);
+                checkApiCallsCompletion();
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 Toast.makeText(InstallGameActivity.this, "Error obtaining game details", Toast.LENGTH_SHORT).show();
+                checkApiCallsCompletion();
             }
         });
     }
@@ -116,9 +130,16 @@ public class InstallGameActivity extends AppCompatActivity {
         carouselRecyclerView.setAdapter(adapter);
     }
 
+    private void checkApiCallsCompletion() {
+        apiCallsPending--;
+        if (apiCallsPending == 0) {
+            progressBarContainer.setVisibility(View.GONE);
+        }
+    }
     void response(int responseCode, String responseMessage) {
         Log.e("API_ERROR", "Response code: " + responseCode);
         Log.e("API_ERROR", "Response message: " + responseMessage);
         Toast.makeText(InstallGameActivity.this, "No se encontraron juegos", Toast.LENGTH_SHORT).show();
+        progressBarContainer.setVisibility(View.GONE);
     }
 }
