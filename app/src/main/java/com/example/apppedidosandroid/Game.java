@@ -13,8 +13,7 @@ public class Game {
     private String Video;
 
     private String Categoria;
-
-    @SerializedName("Puntuación")
+    private Boolean Free;
     private double Puntuacion;
 
     private String Descargas;
@@ -82,6 +81,14 @@ public class Game {
 
     public void setDescargas(String descargas) {
         this.Descargas = descargas;
+    }
+
+    public Boolean getFree() {
+        return Free;
+    }
+
+    public void setFree(Boolean free) {
+        this.Free = free;
     }
 
 }

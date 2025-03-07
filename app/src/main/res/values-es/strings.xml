@@ -35,4 +35,14 @@
     <string name="postal_code">87654</string>
     <string name="city">Ciudad</string>
     <string name="save">Guardar</string>
+    <string name="delete">Delete</string>
+    <string name="my_addresses">Mis direcciones</string>
+    <string name="suscribe_to_notifications">Suscribirse a notificaciones</string>
+    <string name="top_games">Más Populares</string>
+    <string name="see_more">Ver más</string>
+    <string name="description">Descripción</string>
+    <string name="action">Acción</string>
+    <string name="offline_games">Sin Internet</string>
+    <string name="paid">De Pago</string>
+    <string name="multiplayer_games">Multijugador</string>
 </resources>

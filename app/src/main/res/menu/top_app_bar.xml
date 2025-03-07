@@ -6,9 +6,9 @@
         android:id="@+id/action_search"
         android:icon="@drawable/magnifying_glass"
         android:title="@string/SearchIconDescription"
-        app:actionLayout = "@layout/search_item"
-        app:showAsAction="always"
-        />
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
 
     <item
         android:id="@+id/action_cart"

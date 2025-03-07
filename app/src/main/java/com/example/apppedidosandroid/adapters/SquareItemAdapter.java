@@ -51,8 +51,10 @@ public class SquareItemAdapter extends RecyclerView.Adapter<SquareItemAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Game game = games.get(position);
         holder.nameTextView.setText(game.getNombre());
-        holder.ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
-
+        if (game.getPuntuacion() == 0)
+            holder.ratingTextView.setText("No rating (Beta Game)");
+        else
+            holder.ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
         // Usar Glide para cargar la imagen
         if (game.getImagenes() != null && !game.getImagenes().isEmpty()) {
             Glide.with(holder.itemView.getContext())
