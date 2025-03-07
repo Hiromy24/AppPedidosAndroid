@@ -44,4 +44,5 @@
     <string name="offline_games">Offline</string>
     <string name="paid">Paid</string>
     <string name="multiplayer_games">Multiplayer</string>
+    <string name="no_rating_beta_game">No rating (Beta Game)</string>
 </resources>

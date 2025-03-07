@@ -61,11 +61,11 @@ public class InstallGameActivity extends AppCompatActivity {
 
     private void fetchGameDetails(String gameName) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.124.156:5000")
+                .baseUrl("http://10.34.126.6:5000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
-        Map<String, Object> request = Map.of("app_names", List.of(gameName));
+        Map<String, Object> request = Map.of("app_names", List.of(gameName), "free", true, "n_hits", 21);
         Call<List<Game>> call = apiService.getGameInfo(request);
 
         call.enqueue(new Callback<>() {
@@ -88,6 +88,10 @@ public class InstallGameActivity extends AppCompatActivity {
     }
 
     private void setGameDetails(Game game) {
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
+
         gameNameTextView.setText(game.getNombre());
         gameCategoriesTextView.setText(game.getCategorias());
         descriptionTExtView.setText(game.getDescripcion());

@@ -69,13 +69,15 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
         bindGame(holder.imageView3, holder.textView3, holder.categoryTextView3, holder.ratingTextView3, baseIndex + 2);
     }
 
-    private void bindGame(ImageView imageView, TextView nameTextView, TextView categoryTextView, TextView ratingTextView, int index) {
+    private void bindGame(ImageView imageView, TextView nameTextView, TextView categoryTextView, TextView ratingTextView,int index) {
         if (index < games.size()) {
             Game game = games.get(index);
             nameTextView.setText(game.getNombre());
             categoryTextView.setText(game.getCategorias());
-            ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
-
+            if (game.getPuntuacion() == 0)
+                ratingTextView.setText(R.string.no_rating_beta_game);
+            else
+                ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
             if (game.getImagenes() != null && !game.getImagenes().isEmpty()) {
                 Glide.with(imageView.getContext())
                         .load(game.getImagenes().get(0))
