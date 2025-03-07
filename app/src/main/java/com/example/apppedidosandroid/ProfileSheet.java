@@ -1,6 +1,7 @@
 package com.example.apppedidosandroid;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
 import android.content.Context;
@@ -17,6 +18,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,6 +30,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
@@ -55,7 +58,7 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         FrameLayout photo = view.findViewById(R.id.photoLayout);
         ImageView profileImage = view.findViewById(R.id.profileImageView);
         preferences = requireActivity().getSharedPreferences(getString(R.string.prefs_file),
-                Context.MODE_PRIVATE);
+                MODE_PRIVATE);
         ImageButton directionBtn = view.findViewById(R.id.directionImageButton);
         TextView direction = view.findViewById(R.id.directionTextView);
 
@@ -116,10 +119,22 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         TextView username = view.findViewById(R.id.usrTextView);
         TextView signOut = view.findViewById(R.id.signOutTextView);
         signOut.setPaintFlags(signOut.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        Button btnToggleTheme = view.findViewById(R.id.toggleThemeButton);
+        btnToggleTheme.setOnClickListener(v -> {
+            // Cambia la preferencia
+            SharedPreferences.Editor editor = requireActivity().getSharedPreferences("ThemePrefs", MODE_PRIVATE).edit();
+            boolean isDarkMode = !(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+            editor.putBoolean("isDarkMode", isDarkMode);
+            editor.apply();
 
+            // Aplica el cambio sin reiniciar la Activity
+            AppCompatDelegate.setDefaultNightMode(
+                    isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+            );
+        });
         signOut.setOnClickListener(v -> {
             SharedPreferences prefs = requireActivity().getSharedPreferences(
-                    getString(R.string.prefs_file), Context.MODE_PRIVATE);
+                    getString(R.string.prefs_file), MODE_PRIVATE);
             prefs.edit().putString("email", null).apply();
             prefs.edit().putString("username", "").apply();
             dismiss();
@@ -168,4 +183,5 @@ public class ProfileSheet extends BottomSheetDialogFragment {
     private void requestPermissions() {
         requestPermissionLauncher.launch(Manifest.permission.CAMERA);
     }
+
 }
