@@ -50,25 +50,25 @@ public class SingleRectangularItemAdapter extends RecyclerView.Adapter<SingleRec
 
     @Override
     public void onBindViewHolder(@NonNull SingleRectangularItemAdapter.ViewHolder holder, int position) {
-        bindGame(holder.imageView, holder.nameTextView, holder.categoryTextView, holder.ratingTextView, position);
+        bindGame(holder, position);
     }
 
-    private void bindGame(ImageView imageView, TextView nameTextView, TextView categoryTextView, TextView ratingTextView, int index) {
+    private void bindGame(ViewHolder holder, int index) {
         if (index < games.size()) {
             Game game = games.get(index);
-            nameTextView.setText(game.getNombre());
-            categoryTextView.setText(game.getCategorias());
+            holder.nameTextView.setText(game.getNombre());
+            holder.categoryTextView.setText(game.getCategorias());
             if (game.getPuntuacion() == 0)
-                ratingTextView.setText(R.string.no_rating_beta_game);
+                holder.ratingTextView.setText(R.string.no_rating_beta_game);
             else
-                ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
+                holder.ratingTextView.setText(String.format("%.1f", game.getPuntuacion()));
             if (game.getImagenes() != null && !game.getImagenes().isEmpty()) {
-                Glide.with(imageView.getContext())
+                Glide.with(holder.imageView.getContext())
                         .load(game.getImagenes().get(0))
-                        .into(imageView);
+                        .into(holder.imageView);
             }
 
-            imageView.setOnClickListener(v -> {
+            holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(context, InstallGameActivity.class);
                 intent.putExtra("game_nombre", game.getNombre());
                 context.startActivity(intent);

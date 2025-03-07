@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewAction = findViewById(R.id.rectangularActionItemRecyclerView);
         recyclerViewMulti = findViewById(R.id.rectangularItemRecyclerView);
         recyclerViewOffline = findViewById(R.id.rectangularOfflineItemRecyclerView);
-        topAppBar = findViewById(R.id.topAppBar);
+        topAppBar = findViewById(R.id.topAppBar1);
     }
     //region RecyclerView
     void recyclerViewManager(){
@@ -135,9 +135,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_search) {
-            return true;
-        } else if (id == R.id.action_cart) {
-            // Acción para el botón de carrito
             return true;
         } else if (id == R.id.action_profile) {
             showProfileSheet();

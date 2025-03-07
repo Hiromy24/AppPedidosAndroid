@@ -64,12 +64,12 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
     public void onBindViewHolder(@NonNull RectangularItemAdapter.ViewHolder holder, int position) {
         int baseIndex = position * 3;
 
-        bindGame(holder.imageView1, holder.textView1, holder.categoryTextView1, holder.ratingTextView1, baseIndex);
-        bindGame(holder.imageView2, holder.textView2, holder.categoryTextView2, holder.ratingTextView2, baseIndex + 1);
-        bindGame(holder.imageView3, holder.textView3, holder.categoryTextView3, holder.ratingTextView3, baseIndex + 2);
+        bindGame(holder.itemView, holder.imageView1, holder.textView1, holder.categoryTextView1, holder.ratingTextView1, baseIndex);
+        bindGame(holder.itemView, holder.imageView2, holder.textView2, holder.categoryTextView2, holder.ratingTextView2, baseIndex + 1);
+        bindGame(holder.itemView, holder.imageView3, holder.textView3, holder.categoryTextView3, holder.ratingTextView3, baseIndex + 2);
     }
 
-    private void bindGame(ImageView imageView, TextView nameTextView, TextView categoryTextView, TextView ratingTextView,int index) {
+    private void bindGame(View itemView, ImageView imageView, TextView nameTextView, TextView categoryTextView, TextView ratingTextView, int index) {
         if (index < games.size()) {
             Game game = games.get(index);
             nameTextView.setText(game.getNombre());
@@ -84,7 +84,7 @@ public class RectangularItemAdapter extends RecyclerView.Adapter<RectangularItem
                         .into(imageView);
             }
 
-            imageView.setOnClickListener(v -> {
+            itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(context, InstallGameActivity.class);
                 intent.putExtra("game_nombre", game.getNombre());
                 context.startActivity(intent);
