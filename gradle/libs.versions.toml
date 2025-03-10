@@ -21,6 +21,7 @@ playServicesAuth = "21.3.0"
 repo = "Tag"
 ucrop = "2.2.6"
 firebaseAuth = "23.2.0"
+swiperefreshlayout = "1.1.0"
 
 [libraries]
 com-github-bumptech-glide-glide = { module = "com.github.bumptech.glide:glide", version.ref = "githubGlideVersion" }
@@ -47,6 +48,7 @@ play-services-auth = { module = "com.google.android.gms:play-services-auth", ver
 repo = { module = "com.github.User:Repo", version.ref = "repo" }
 ucrop = { module = "com.github.yalantis:ucrop", version.ref = "ucrop" }
 google-firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

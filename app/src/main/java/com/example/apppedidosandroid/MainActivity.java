@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.apppedidosandroid.adapters.PopularItemAdapter;
 import com.example.apppedidosandroid.adapters.RectangularItemAdapter;
@@ -43,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerViewSuggestions, recyclerViewStrategy, recyclerViewPopular, recyclerViewPaid, recyclerViewAction,
             recyclerViewMulti, recyclerViewOffline;
     MaterialToolbar topAppBar;
+    ProgressBar progressBar;
+    View progressBarContainer;
+    int apiCallsPending = 6;
+    SwipeRefreshLayout swipeRefreshLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,16 +59,17 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-    });
+        });
+
         SharedPreferences prefs = getSharedPreferences("ThemePrefs", MODE_PRIVATE);
         boolean isDarkMode = prefs.getBoolean("isDarkMode", false);
 
-        // Aplica el tema
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+
         loginLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -72,40 +81,12 @@ public class MainActivity extends AppCompatActivity {
         linkComponents();
         setSupportActionBar(topAppBar);
         recyclerViewManager();
-        fetchRandomGames(); // Llamar al método que obtiene los juegos
-
+        fetchRandomGames();
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            apiCallsPending = 6; // Reset the number of API calls to wait for
+            fetchRandomGames();
+        });
     }
-    void linkComponents(){
-        recyclerViewSuggestions = findViewById(R.id.squareItemRecyclerView);
-        recyclerViewStrategy = findViewById(R.id.rectangularStrategyItemRecyclerView);
-        recyclerViewPopular = findViewById(R.id.popularItemRecyclerView);
-        recyclerViewAction = findViewById(R.id.rectangularActionItemRecyclerView);
-        recyclerViewMulti = findViewById(R.id.rectangularItemRecyclerView);
-        recyclerViewOffline = findViewById(R.id.rectangularOfflineItemRecyclerView);
-        topAppBar = findViewById(R.id.topAppBar1);
-    }
-    //region RecyclerView
-    void recyclerViewManager(){
-        setRecyclerLayout();
-        setRecyclerItemDecoration();
-    }
-    void setRecyclerLayout(){
-        recyclerViewSuggestions.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewStrategy.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewAction.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewMulti.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewOffline.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-    }
-    void setRecyclerItemDecoration(){
-        recyclerViewSuggestions.addItemDecoration(new DividerItemDecoration(recyclerViewSuggestions.getContext(), DividerItemDecoration.HORIZONTAL));
-        recyclerViewStrategy.addItemDecoration(new DividerItemDecoration(recyclerViewStrategy.getContext(),DividerItemDecoration.HORIZONTAL));
-        recyclerViewPopular.addItemDecoration(new DividerItemDecoration(recyclerViewPopular.getContext(),DividerItemDecoration.HORIZONTAL));
-        recyclerViewAction.addItemDecoration(new DividerItemDecoration(recyclerViewAction.getContext(),DividerItemDecoration.HORIZONTAL));
-        recyclerViewMulti.addItemDecoration(new DividerItemDecoration(recyclerViewMulti.getContext(),DividerItemDecoration.HORIZONTAL));
-        recyclerViewOffline.addItemDecoration(new DividerItemDecoration(recyclerViewOffline.getContext(),DividerItemDecoration.HORIZONTAL));
-    }
-    //endregion
     //region ToolBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -143,18 +124,47 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     //endregion
-    public void showProfileSheet() {
-        SharedPreferences preferences;
-        preferences = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
-        if (preferences.getString("email", null) != null) {
-            ProfileSheet profileSheet = new ProfileSheet();
-            profileSheet.show(getSupportFragmentManager(), "ProfileSheet");
-        } else {
-            Intent intent = new Intent(this, LoginActivity.class);
-            loginLauncher.launch(intent);
-        }
+
+    void linkComponents() {
+        recyclerViewSuggestions = findViewById(R.id.squareItemRecyclerView);
+        recyclerViewStrategy = findViewById(R.id.rectangularStrategyItemRecyclerView);
+        recyclerViewPopular = findViewById(R.id.popularItemRecyclerView);
+        recyclerViewAction = findViewById(R.id.rectangularActionItemRecyclerView);
+        recyclerViewMulti = findViewById(R.id.rectangularItemRecyclerView);
+        recyclerViewOffline = findViewById(R.id.rectangularOfflineItemRecyclerView);
+        topAppBar = findViewById(R.id.topAppBar1);
+        progressBar = findViewById(R.id.progressBar);
+        progressBarContainer = findViewById(R.id.progressBarContainer);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
     }
+
+    void recyclerViewManager() {
+        setRecyclerLayout();
+        setRecyclerItemDecoration();
+    }
+
+    void setRecyclerLayout() {
+        recyclerViewSuggestions.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewStrategy.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewAction.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewMulti.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewOffline.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    void setRecyclerItemDecoration() {
+        recyclerViewSuggestions.addItemDecoration(new DividerItemDecoration(recyclerViewSuggestions.getContext(), DividerItemDecoration.HORIZONTAL));
+        recyclerViewStrategy.addItemDecoration(new DividerItemDecoration(recyclerViewStrategy.getContext(), DividerItemDecoration.HORIZONTAL));
+        recyclerViewPopular.addItemDecoration(new DividerItemDecoration(recyclerViewPopular.getContext(), DividerItemDecoration.HORIZONTAL));
+        recyclerViewAction.addItemDecoration(new DividerItemDecoration(recyclerViewAction.getContext(), DividerItemDecoration.HORIZONTAL));
+        recyclerViewMulti.addItemDecoration(new DividerItemDecoration(recyclerViewMulti.getContext(), DividerItemDecoration.HORIZONTAL));
+        recyclerViewOffline.addItemDecoration(new DividerItemDecoration(recyclerViewOffline.getContext(), DividerItemDecoration.HORIZONTAL));
+    }
+
     private void fetchRandomGames() {
+        progressBarContainer.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setVisibility(View.GONE);
+
         Retrofit retrofit;
         ApiService apiService;
         Map<String, Object> request;
@@ -183,11 +193,10 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
-        // Llamada a la API (aquí debes enviar el nombre de la app o dejarlo vacío para obtener juegos aleatorios)
+
         request = Map.of("app_name", "", "free", true);
         request1 = Map.of("category", "Strategy", "n_hits", 12, "free", true);
-        request2 = Map.of("app_names", List.of("Among Us", "Bullet Echo", "Roblox",
-                "JCC Pokemon Pocket", "Wild Rift"), "free", true);
+        request2 = Map.of("app_names", List.of("Among Us", "Bullet Echo", "Roblox", "JCC Pokemon Pocket", "Wild Rift"), "free", true);
         request4 = Map.of("category", "Action", "n_hits", 12, "free", true);
         request5 = Map.of("category", "Multiplayer", "n_hits", 12, "free", true);
         request6 = Map.of("category", "Offline", "n_hits", 12, "free", true);
@@ -199,126 +208,157 @@ public class MainActivity extends AppCompatActivity {
         callMultiplayerGames = apiService.getGames(request5);
         callOfflineGames = apiService.getGames(request6);
 
-        //region Callbacks
         callRandomGames.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
-                if (!response.isSuccessful() && response.body() == null) {
+                if (!response.isSuccessful() || response.body() == null) {
                     response(response.code(), response.message());
                     return;
                 }
-                recyclerViewSuggestions.setAdapter(new SquareItemAdapter(response.body(),
-                        MainActivity.this));
-                new PagerSnapHelper().attachToRecyclerView(recyclerViewSuggestions);
+                recyclerViewSuggestions.setAdapter(new SquareItemAdapter(response.body(), MainActivity.this));
+                attachSnapHelper(recyclerViewSuggestions);
+                checkApiCallsCompletion();
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Error obtaining games", Toast.LENGTH_SHORT).show();
+                checkApiCallsCompletion();
             }
         });
 
         callStrategyGames.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
-                if (!response.isSuccessful() && response.body() == null) {
+                if (!response.isSuccessful() || response.body() == null) {
                     response(response.code(), response.message());
                     return;
                 }
-                recyclerViewStrategy.setAdapter(new RectangularItemAdapter(response.body(),
-                        MainActivity.this));
-                new PagerSnapHelper().attachToRecyclerView(recyclerViewStrategy);
+                recyclerViewStrategy.setAdapter(new RectangularItemAdapter(response.body(), MainActivity.this));
+                attachSnapHelper(recyclerViewStrategy);
+                checkApiCallsCompletion();
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Error obtaining games", Toast.LENGTH_SHORT).show();
+                checkApiCallsCompletion();
             }
         });
 
         callPopularGames.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
-                if (!response.isSuccessful() && response.body() == null) {
+                if (!response.isSuccessful() || response.body() == null) {
                     response(response.code(), response.message());
                     return;
                 }
-                recyclerViewPopular.setAdapter(new PopularItemAdapter(response.body(),
-                        MainActivity.this));
-                new PagerSnapHelper().attachToRecyclerView(recyclerViewPopular);
+                recyclerViewPopular.setAdapter(new PopularItemAdapter(response.body(), MainActivity.this));
+                attachSnapHelper(recyclerViewPopular);
+                checkApiCallsCompletion();
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Error obtaining games", Toast.LENGTH_SHORT).show();
+                checkApiCallsCompletion();
             }
         });
 
         callActionGames.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
-                if (!response.isSuccessful() && response.body() == null) {
+                if (!response.isSuccessful() || response.body() == null) {
                     response(response.code(), response.message());
                     return;
                 }
-                recyclerViewAction.setAdapter(new RectangularItemAdapter(response.body(),
-                        MainActivity.this));
-                new PagerSnapHelper().attachToRecyclerView(recyclerViewAction);
+                recyclerViewAction.setAdapter(new RectangularItemAdapter(response.body(), MainActivity.this));
+                attachSnapHelper(recyclerViewAction);
+                checkApiCallsCompletion();
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Error obtaining games", Toast.LENGTH_SHORT).show();
+                checkApiCallsCompletion();
             }
         });
 
         callMultiplayerGames.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
-                if (!response.isSuccessful() && response.body() == null) {
+                if (!response.isSuccessful() || response.body() == null) {
                     response(response.code(), response.message());
                     return;
                 }
-                recyclerViewMulti.setAdapter(new RectangularItemAdapter(response.body(),
-                        MainActivity.this));
-                new PagerSnapHelper().attachToRecyclerView(recyclerViewMulti);
+                recyclerViewMulti.setAdapter(new RectangularItemAdapter(response.body(), MainActivity.this));
+                attachSnapHelper(recyclerViewMulti);
+                checkApiCallsCompletion();
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Error obtaining games", Toast.LENGTH_SHORT).show();
+                checkApiCallsCompletion();
             }
         });
 
         callOfflineGames.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<Game>> call, @NonNull Response<List<Game>> response) {
-                if (!response.isSuccessful() && response.body() == null) {
+                if (!response.isSuccessful() || response.body() == null) {
                     response(response.code(), response.message());
                     return;
                 }
-                recyclerViewOffline.setAdapter(new RectangularItemAdapter(response.body(),
-                        MainActivity.this));
-                new PagerSnapHelper().attachToRecyclerView(recyclerViewOffline);
+                recyclerViewOffline.setAdapter(new RectangularItemAdapter(response.body(), MainActivity.this));
+                attachSnapHelper(recyclerViewOffline);
+                checkApiCallsCompletion();
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Game>> call, @NonNull Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Error obtaining games", Toast.LENGTH_SHORT).show();
+                checkApiCallsCompletion();
             }
         });
-        //endregion
     }
+
+    private void checkApiCallsCompletion() {
+        apiCallsPending--;
+        if (apiCallsPending == 0) {
+            progressBarContainer.setVisibility(View.GONE);
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    private void attachSnapHelper(RecyclerView recyclerView) {
+        if (recyclerView.getOnFlingListener() == null) {
+            new PagerSnapHelper().attachToRecyclerView(recyclerView);
+        }
+    }
+
+    public void showProfileSheet() {
+        SharedPreferences preferences;
+        preferences = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
+        if (preferences.getString("email", null) != null) {
+            ProfileSheet profileSheet = new ProfileSheet();
+            profileSheet.show(getSupportFragmentManager(), "ProfileSheet");
+        } else {
+            Intent intent = new Intent(this, LoginActivity.class);
+            loginLauncher.launch(intent);
+        }
+    }
+
     void response(int responseCode, String responseMessage) {
         Log.e("API_ERROR", "Response code: " + responseCode);
         Log.e("API_ERROR", "Response message: " + responseMessage);
         Toast.makeText(MainActivity.this, "No se encontraron juegos", Toast.LENGTH_SHORT).show();
     }
-
 }
