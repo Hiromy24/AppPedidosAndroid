@@ -120,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_profile) {
             showProfileSheet();
             return true;
+        } else if (id == R.id.action_cart) {
+            Intent intent = new Intent(this, CartActivity.class);
+            startActivity(intent);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -182,21 +186,21 @@ public class MainActivity extends AppCompatActivity {
         Call<List<Game>> callOfflineGames;
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
                 .build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.126.6:5000")
+                .baseUrl(getString(R.string.http))
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
 
-        request = Map.of("app_name", "", "free", true);
+        request = Map.of("app_name", "");
         request1 = Map.of("category", "Strategy", "n_hits", 12, "free", true);
-        request2 = Map.of("app_names", List.of("Among Us", "Bullet Echo", "Roblox", "JCC Pokemon Pocket", "Wild Rift"), "free", true);
+        request2 = Map.of("app_names", List.of("Among Us", "Bullet Echo", "Roblox", "JCC Pokemon Pocket", "Wild Rift"));
         request4 = Map.of("category", "Action", "n_hits", 12, "free", true);
         request5 = Map.of("category", "Multiplayer", "n_hits", 12, "free", true);
         request6 = Map.of("category", "Offline", "n_hits", 12, "free", true);

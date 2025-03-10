@@ -18,6 +18,8 @@ public class Game {
 
     private String Descargas;
 
+    private Boolean isInstalled;
+
     // Getters and Setters
     public String getNombre() {
         return Nombre;
@@ -89,6 +91,14 @@ public class Game {
 
     public void setFree(Boolean free) {
         this.Free = free;
+    }
+
+    public Boolean isInstalled() {
+        return isInstalled;
+    }
+
+    public void setInstalled(Boolean installed) {
+        this.isInstalled = installed;
     }
 
 }

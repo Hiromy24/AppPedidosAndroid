@@ -45,4 +45,5 @@
     <string name="paid">Paid</string>
     <string name="multiplayer_games">Multiplayer</string>
     <string name="no_rating_beta_game">No rating (Beta Game)</string>
+    <string name="http">http://10.34.125.150:5000</string>
 </resources>
