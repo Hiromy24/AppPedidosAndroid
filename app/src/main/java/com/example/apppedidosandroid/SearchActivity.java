@@ -138,7 +138,7 @@ public class SearchActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.34.126.6:5000")
+                .baseUrl(getString(R.string.http))
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
