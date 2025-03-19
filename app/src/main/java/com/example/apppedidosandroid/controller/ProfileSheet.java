@@ -160,15 +160,6 @@ public class ProfileSheet extends BottomSheetDialogFragment {
             // Cambiar el texto del botón
             themeLabel.setText(newThemeState ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro");
         });
-
-        signOut.setOnClickListener(v -> {
-            SharedPreferences prefs = requireActivity().getSharedPreferences(
-                    getString(R.string.prefs_file), MODE_PRIVATE);
-            prefs.edit().putString("email", null).apply();
-            prefs.edit().putString("username", "").apply();
-            dismiss();
-        });
-
         email.setText(preferences.getString("email", ""));
 
         String email1 = preferences.getString("email", "");
@@ -240,9 +231,14 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         AlertDialog alertDialog = builder.create();
 
         // TODO: CERRAR SESION
-        button.setOnClickListener(v -> alertDialog.dismiss()
-
-        );
+        button.setOnClickListener(v -> {
+            SharedPreferences prefs = requireActivity().getSharedPreferences(
+                    getString(R.string.prefs_file), MODE_PRIVATE);
+            prefs.edit().putString("email", null).apply();
+            prefs.edit().putString("username", "").apply();
+            dismiss();
+            alertDialog.dismiss();
+        });
 
         alertDialog.show();
     }
