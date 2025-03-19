@@ -1,4 +1,4 @@
-package com.example.apppedidosandroid.adapters;
+package com.example.apppedidosandroid.view.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.apppedidosandroid.CartManager;
-import com.example.apppedidosandroid.Game;
+import com.example.apppedidosandroid.model.CartManager;
+import com.example.apppedidosandroid.model.Game;
 import com.example.apppedidosandroid.R;
 
 import java.util.List;

@@ -1,5 +1,5 @@
 // Address.java
-package com.example.apppedidosandroid;
+package com.example.apppedidosandroid.model;
 
 import java.io.Serializable;
 

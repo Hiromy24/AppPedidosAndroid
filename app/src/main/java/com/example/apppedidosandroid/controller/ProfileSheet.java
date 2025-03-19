@@ -1,28 +1,27 @@
-package com.example.apppedidosandroid;
+package com.example.apppedidosandroid.controller;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,12 +34,10 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.example.apppedidosandroid.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import org.w3c.dom.Text;
-
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.Objects;
 
 public class ProfileSheet extends BottomSheetDialogFragment {
@@ -48,6 +45,9 @@ public class ProfileSheet extends BottomSheetDialogFragment {
     private ActivityResultLauncher<String> requestPermissionLauncher;
     SharedPreferences preferences;
     String photoUrl;
+    EditText usrTextView;
+
+    String email;
 
     @Nullable
     @Override
@@ -57,12 +57,28 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         ImageButton btnClose = view.findViewById(R.id.closeButton);
         FrameLayout photo = view.findViewById(R.id.photoLayout);
         ImageView profileImage = view.findViewById(R.id.profileImageView);
+        usrTextView = view.findViewById(R.id.usrTextView);
         preferences = requireActivity().getSharedPreferences(getString(R.string.prefs_file),
                 MODE_PRIVATE);
         ImageButton directionBtn = view.findViewById(R.id.directionImageButton);
         TextView direction = view.findViewById(R.id.directionTextView);
 
+        email = preferences.getString("email", "");
+        String initialUsername = preferences.getString("username" + email, "");
+        if (initialUsername.isEmpty()) {
+            Toast.makeText(getContext(), "Username not found", Toast.LENGTH_SHORT).show();
+            initialUsername = preferences.getString("username", ""); // Get Google username if available
+        }
+        usrTextView.setText(initialUsername);
         btnClose.setOnClickListener(v -> dismiss());
+
+        usrTextView.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                saveUsername();
+                return true;
+            }
+            return false;
+        });
         photo.setOnClickListener(v -> {
             if (checkPermissions()) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -116,7 +132,6 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         );
 
         TextView email = view.findViewById(R.id.emailProfileTextView);
-        TextView username = view.findViewById(R.id.usrTextView);
         TextView signOut = view.findViewById(R.id.signOutTextView);
         TextView themeLabel = view.findViewById(R.id.changeColorTextView);
         signOut.setPaintFlags(signOut.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -151,7 +166,6 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         });
 
         email.setText(preferences.getString("email", ""));
-        username.setText(preferences.getString("username", ""));
 
         String email1 = preferences.getString("email", "");
         photoUrl = preferences.getString("photoUrlBit_" + email1, "");
@@ -192,6 +206,18 @@ public class ProfileSheet extends BottomSheetDialogFragment {
 
     private void requestPermissions() {
         requestPermissionLauncher.launch(Manifest.permission.CAMERA);
+    }
+
+    private void saveUsername() {
+        String username = usrTextView.getText().toString().trim();
+        if (!username.isEmpty()) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("username" + email, username);
+            editor.apply();
+            Toast.makeText(getContext(), "Username saved", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

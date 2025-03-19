@@ -1,4 +1,4 @@
-package com.example.apppedidosandroid.adapters;
+package com.example.apppedidosandroid.view.adapters;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apppedidosandroid.EditAddress;
+import com.example.apppedidosandroid.controller.EditAddress;
 import com.example.apppedidosandroid.R;
-import com.example.apppedidosandroid.Address;
+import com.example.apppedidosandroid.model.Address;
 
 import java.util.List;
 

@@ -64,15 +64,16 @@
             android:layout_marginStart="20dp"
             android:orientation="vertical">
 
-            <TextView
+            <EditText
                 android:id="@+id/usrTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/geist_bold"
                 android:hint="@string/username"
+                android:imeOptions="actionDone"
+                android:inputType="text"
                 android:textColor="@color/black"
                 android:textSize="@dimen/h2" />
-
             <TextView
                 android:id="@+id/emailProfileTextView"
                 android:layout_width="match_parent"

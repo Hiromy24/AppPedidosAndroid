@@ -51,4 +51,5 @@
     <string name="installed">Juego instalado</string>
     <string name="uninstalled">Juego desinstalado</string>
     <string name="not_installed">No instalado</string>
+    <string name="load">Trabajando para que tengas la mejor experiencia</string>
 </resources>

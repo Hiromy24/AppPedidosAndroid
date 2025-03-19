@@ -1,4 +1,4 @@
-package com.example.apppedidosandroid;
+package com.example.apppedidosandroid.controller;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -13,7 +13,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apppedidosandroid.adapters.AddressAdapter;
+import com.example.apppedidosandroid.R;
+import com.example.apppedidosandroid.view.adapters.AddressAdapter;
+import com.example.apppedidosandroid.model.Address;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

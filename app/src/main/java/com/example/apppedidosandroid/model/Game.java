@@ -1,6 +1,5 @@
-package com.example.apppedidosandroid;
+package com.example.apppedidosandroid.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Game {
