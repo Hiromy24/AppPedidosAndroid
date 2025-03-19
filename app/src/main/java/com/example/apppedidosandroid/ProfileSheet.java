@@ -120,18 +120,27 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         TextView signOut = view.findViewById(R.id.signOutTextView);
         signOut.setPaintFlags(signOut.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         Button btnToggleTheme = view.findViewById(R.id.toggleThemeButton);
+
+        SharedPreferences themePrefs = requireActivity().getSharedPreferences("ThemePrefs", MODE_PRIVATE);
+        boolean isDarkMode = themePrefs.getBoolean("isDarkMode", false);
+
+        btnToggleTheme.setText(isDarkMode ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro");
+
         btnToggleTheme.setOnClickListener(v -> {
-            // Cambia la preferencia
-            SharedPreferences.Editor editor = requireActivity().getSharedPreferences("ThemePrefs", MODE_PRIVATE).edit();
-            boolean isDarkMode = !(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
-            editor.putBoolean("isDarkMode", isDarkMode);
+            boolean newThemeState = !isDarkMode;
+            SharedPreferences.Editor editor = themePrefs.edit();
+            editor.putBoolean("isDarkMode", newThemeState);
             editor.apply();
 
-            // Aplica el cambio sin reiniciar la Activity
+            // Aplicar el cambio de tema
             AppCompatDelegate.setDefaultNightMode(
-                    isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+                    newThemeState ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
             );
+
+            // Cambiar el texto del botón
+            btnToggleTheme.setText(newThemeState ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro");
         });
+
         signOut.setOnClickListener(v -> {
             SharedPreferences prefs = requireActivity().getSharedPreferences(
                     getString(R.string.prefs_file), MODE_PRIVATE);
