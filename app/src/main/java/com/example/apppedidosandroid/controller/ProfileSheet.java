@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -132,9 +133,12 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         );
 
         TextView email = view.findViewById(R.id.emailProfileTextView);
-        TextView signOut = view.findViewById(R.id.signOutTextView);
+        Button signOut = view.findViewById(R.id.signOutTextView);
         TextView themeLabel = view.findViewById(R.id.changeColorTextView);
         signOut.setPaintFlags(signOut.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        signOut.setOnClickListener(v -> {
+            showCustomDialog(view);
+        });
         Button btnToggleTheme = view.findViewById(R.id.toggleThemeButton);
 
         SharedPreferences themePrefs = requireActivity().getSharedPreferences("ThemePrefs", MODE_PRIVATE);
@@ -219,5 +223,27 @@ public class ProfileSheet extends BottomSheetDialogFragment {
             Toast.makeText(getContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show();
         }
     }
+    private void showCustomDialog(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+        builder.setView(dialogView);
+
+        TextView title = dialogView.findViewById(R.id.dialogTitle);
+        TextView message = dialogView.findViewById(R.id.dialogMessage);
+        Button button = dialogView.findViewById(R.id.aceptarDialog);
+
+        title.setText(R.string.Warning);
+        message.setText(R.string.logOutConfirmation);
+
+        AlertDialog alertDialog = builder.create();
+
+        // TODO: CERRAR SESION
+        button.setOnClickListener(v -> alertDialog.dismiss()
+
+        );
+
+        alertDialog.show();
+    }
 }

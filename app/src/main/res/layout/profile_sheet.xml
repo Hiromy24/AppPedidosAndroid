@@ -162,10 +162,11 @@
 
     </LinearLayout>
 
-    <TextView
+    <Button
         android:id="@+id/signOutTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
         android:fontFamily="@font/geist_semi_bold"
         android:gravity="center"
         android:text="@string/logout"
