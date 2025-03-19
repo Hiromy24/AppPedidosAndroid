@@ -38,15 +38,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(CartViewHolder holder, int position) {
         Game game = games.get(position);
 
-        holder.tvGameName.setText(game.getNombre());
-        holder.tvGameStatus.setText("Status: " + (game.isInstalled() ?
+        holder.gameNameTextView.setText(game.getNombre());
+        holder.gameStatusTextView.setText("Status: " + (game.isInstalled() ?
                 context.getString(R.string.installed) : context.getString(R.string.not_installed)));
 
         // Load image from URL using Glide
         Glide.with(context)
                 .load(game.getImagenes().get(0))
                 .placeholder(R.drawable.star_solid)
-                .into(holder.ivGameImage);
+                .into(holder.gameImage);
 
         holder.btnInstall.setText(game.isInstalled() ? R.string.uninstall : R.string.install);
         holder.btnInstall.setOnClickListener(v -> {
@@ -62,16 +62,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     public static class CartViewHolder extends RecyclerView.ViewHolder {
-        TextView tvGameName, tvGameStatus;
-        ImageView ivGameImage;
+        TextView gameNameTextView, gameStatusTextView;
+        ImageView gameImage;
         Button btnInstall;
 
         public CartViewHolder(View itemView) {
             super(itemView);
-            tvGameName = itemView.findViewById(R.id.tvGameName);
-            tvGameStatus = itemView.findViewById(R.id.tvGameStatus);
-            ivGameImage = itemView.findViewById(R.id.ivGameImage);
-            btnInstall = itemView.findViewById(R.id.btnInstall);
+            gameNameTextView = itemView.findViewById(R.id.gameNameTextView);
+            gameStatusTextView = itemView.findViewById(R.id.gameStatusTextView);
+            gameImage = itemView.findViewById(R.id.gameImageViewView);
+            btnInstall = itemView.findViewById(R.id.installButton2);
         }
     }
 }
