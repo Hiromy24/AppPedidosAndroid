@@ -99,7 +99,9 @@
                                 android:layout_marginStart="3dp"
                                 android:layout_weight="3"
                                 android:backgroundTint="@color/white"
+                                android:backgroundTintMode="add"
                                 android:foregroundTint="@color/white"
+                                android:tint="@color/white"
                                 app:srcCompat="@drawable/star_solid" />
 
                             <TextView
@@ -119,7 +121,9 @@
                                 android:layout_marginStart="3dp"
                                 android:layout_weight="3"
                                 android:backgroundTint="@color/white"
+                                android:backgroundTintMode="add"
                                 android:foregroundTint="@color/white"
+                                android:tint="@color/white"
                                 app:srcCompat="@drawable/download_solid" />
                         </LinearLayout>
 
@@ -175,6 +179,7 @@
                     android:id="@+id/descriptionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:fontFamily="@font/geist_regular"
                     android:textSize="@dimen/p" />
             </LinearLayout>
