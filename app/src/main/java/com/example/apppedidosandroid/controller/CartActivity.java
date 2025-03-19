@@ -1,4 +1,4 @@
-package com.example.apppedidosandroid;
+package com.example.apppedidosandroid.controller;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apppedidosandroid.adapters.CartAdapter;
+import com.example.apppedidosandroid.R;
+import com.example.apppedidosandroid.view.adapters.CartAdapter;
+import com.example.apppedidosandroid.model.CartManager;
+import com.example.apppedidosandroid.model.Game;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

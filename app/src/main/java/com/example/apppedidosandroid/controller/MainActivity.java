@@ -1,12 +1,15 @@
-package com.example.apppedidosandroid;
+package com.example.apppedidosandroid.controller;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,9 +29,12 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.apppedidosandroid.adapters.PopularItemAdapter;
-import com.example.apppedidosandroid.adapters.RectangularItemAdapter;
-import com.example.apppedidosandroid.adapters.SquareItemAdapter;
+import com.example.apppedidosandroid.ApiService;
+import com.example.apppedidosandroid.R;
+import com.example.apppedidosandroid.view.adapters.PopularItemAdapter;
+import com.example.apppedidosandroid.view.adapters.RectangularItemAdapter;
+import com.example.apppedidosandroid.view.adapters.SquareItemAdapter;
+import com.example.apppedidosandroid.model.Game;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import okhttp3.OkHttpClient;
@@ -63,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        TextView textView = findViewById(R.id.textView2);
+        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        textView.startAnimation(fadeIn);
         SharedPreferences prefs = getSharedPreferences("ThemePrefs", MODE_PRIVATE);
         boolean isDarkMode = prefs.getBoolean("isDarkMode", false);
 

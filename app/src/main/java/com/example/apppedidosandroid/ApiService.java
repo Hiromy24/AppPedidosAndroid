@@ -1,5 +1,7 @@
 package com.example.apppedidosandroid;
 
+import com.example.apppedidosandroid.model.Game;
+
 import java.util.List;
 import java.util.Map;
 

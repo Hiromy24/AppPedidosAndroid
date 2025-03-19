@@ -1,4 +1,4 @@
-package com.example.apppedidosandroid;
+package com.example.apppedidosandroid.controller;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,7 +21,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apppedidosandroid.adapters.SingleRectangularItemAdapter;
+import com.example.apppedidosandroid.ApiService;
+import com.example.apppedidosandroid.R;
+import com.example.apppedidosandroid.view.adapters.SingleRectangularItemAdapter;
+import com.example.apppedidosandroid.model.Game;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;

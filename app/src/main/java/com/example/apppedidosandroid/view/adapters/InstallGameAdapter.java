@@ -1,5 +1,5 @@
 // InstallGameAdapter.java
-package com.example.apppedidosandroid.adapters;
+package com.example.apppedidosandroid.view.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

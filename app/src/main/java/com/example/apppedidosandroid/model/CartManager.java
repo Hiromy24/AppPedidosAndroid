@@ -1,5 +1,5 @@
 // CartManager.java
-package com.example.apppedidosandroid;
+package com.example.apppedidosandroid.model;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

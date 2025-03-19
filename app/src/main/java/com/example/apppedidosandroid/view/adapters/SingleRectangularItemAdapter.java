@@ -1,4 +1,4 @@
-package com.example.apppedidosandroid.adapters;
+package com.example.apppedidosandroid.view.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.apppedidosandroid.Game;
-import com.example.apppedidosandroid.InstallGameActivity;
+import com.example.apppedidosandroid.model.Game;
+import com.example.apppedidosandroid.controller.InstallGameActivity;
 import com.example.apppedidosandroid.R;
 
 import java.util.List;
