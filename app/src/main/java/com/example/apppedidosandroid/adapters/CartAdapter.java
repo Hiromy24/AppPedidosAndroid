@@ -39,7 +39,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         Game game = games.get(position);
 
         holder.tvGameName.setText(game.getNombre());
-        holder.tvGameStatus.setText("Status: " + (game.isInstalled() ? "Installed" : "Not installed"));
+        holder.tvGameStatus.setText("Status: " + (game.isInstalled() ?
+                context.getString(R.string.installed) : context.getString(R.string.not_installed)));
 
         // Load image from URL using Glide
         Glide.with(context)
@@ -47,7 +48,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .placeholder(R.drawable.star_solid)
                 .into(holder.ivGameImage);
 
-        holder.btnInstall.setText(game.isInstalled() ? "Uninstall" : "Install");
+        holder.btnInstall.setText(game.isInstalled() ? R.string.uninstall : R.string.install);
         holder.btnInstall.setOnClickListener(v -> {
             game.setInstalled(!game.isInstalled());
             cartManager.saveCart(games);

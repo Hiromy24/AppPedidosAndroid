@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.view.Menu;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     int apiCallsPending = 6;
     SwipeRefreshLayout swipeRefreshLayout;
 
+    LinearLayout seeMoreStrategy, seeMorePopular, seeMoreAction, seeMoreMulti, seeMoreOffline;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+
         linkComponents();
+        linkSeeMore();
         setSupportActionBar(topAppBar);
         recyclerViewManager();
         fetchRandomGames();
@@ -121,8 +126,15 @@ public class MainActivity extends AppCompatActivity {
             showProfileSheet();
             return true;
         } else if (id == R.id.action_cart) {
-            Intent intent = new Intent(this, CartActivity.class);
-            startActivity(intent);
+            if (getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE).getString("email", null) == null) {
+                Toast.makeText(this, "Sign in to see your cart", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, LoginActivity.class);
+                loginLauncher.launch(intent);
+                return true;
+            } else {
+                Intent intent = new Intent(this, CartActivity.class);
+                startActivity(intent);
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -140,6 +152,33 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBarContainer = findViewById(R.id.progressBarContainer);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        seeMoreStrategy = findViewById(R.id.strategy);
+        seeMoreAction = findViewById(R.id.action);
+        seeMoreMulti = findViewById(R.id.multiplayer);
+        seeMoreOffline = findViewById(R.id.offline);
+    }
+
+    void linkSeeMore() {
+        seeMoreStrategy.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            intent.putExtra("category", "Strategy");
+            startActivity(intent);
+        });
+        seeMoreAction.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            intent.putExtra("category", "Action");
+            startActivity(intent);
+        });
+        seeMoreMulti.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            intent.putExtra("category", "Multiplayer");
+            startActivity(intent);
+        });
+        seeMoreOffline.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            intent.putExtra("category", "Offline");
+            startActivity(intent);
+        });
     }
 
     void recyclerViewManager() {

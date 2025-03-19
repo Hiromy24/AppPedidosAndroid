@@ -15,7 +15,7 @@
         android:src="@android:drawable/ic_menu_gallery" />
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
@@ -39,7 +39,7 @@
 
     <Button
         android:id="@+id/btnInstall"
-        android:layout_width="110dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="Install" />

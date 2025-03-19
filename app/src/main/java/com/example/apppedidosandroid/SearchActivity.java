@@ -67,9 +67,8 @@ public class SearchActivity extends AppCompatActivity {
         progressBarContainer = findViewById(R.id.progressBarContainer);
 
         String gameName = getIntent().getStringExtra("gameNames");
-        if (gameName != null) {
-            fetchGameDetails(gameName);
-        }
+        String category = getIntent().getStringExtra("category");
+        fetchGameDetails(gameName, category);
         loginLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -130,7 +129,7 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    private void fetchGameDetails(String game) {
+    private void fetchGameDetails(String game, String category) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
@@ -144,8 +143,15 @@ public class SearchActivity extends AppCompatActivity {
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Map<String, Object> request = Map.of("app_name", game, "n_hits", 48, "free", true);
-        Call<List<Game>> callGameDetails = apiService.getGames(request);
+        Call<List<Game>> callGameDetails;
+        Map<String, Object> request;
+        if (game != null) {
+            request = Map.of("app_name", game, "n_hits", 48, "free", true);
+            callGameDetails = apiService.getGames(request);
+        } else {
+            request = Map.of("category", category, "n_hits", 48, "free", true);
+            callGameDetails = apiService.getGames(request);
+        }
 
         callGameDetails.enqueue(new Callback<>() {
             @Override
@@ -185,6 +191,6 @@ public class SearchActivity extends AppCompatActivity {
     void response(int responseCode, String responseMessage) {
         Log.e("API_ERROR", "Response code: " + responseCode);
         Log.e("API_ERROR", "Response message: " + responseMessage);
-        Toast.makeText(SearchActivity.this, "No se encontraron juegos", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SearchActivity.this, "Games not found", Toast.LENGTH_SHORT).show();
     }
 }

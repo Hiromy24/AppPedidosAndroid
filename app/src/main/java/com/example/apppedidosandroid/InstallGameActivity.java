@@ -87,12 +87,16 @@ public class InstallGameActivity extends AppCompatActivity {
         }
 
         installButton.setOnClickListener(v -> {
-            if (currentGame != null) {
-                boolean isInstalled = currentGame.isInstalled();
-                currentGame.setInstalled(!isInstalled);
-                cartManager.saveCart(List.of(currentGame));
-                installButton.setText(currentGame.isInstalled() ? "Uninstall" : "Install");
-                Toast.makeText(this, currentGame.isInstalled() ? "Game installed" : "Game uninstalled", Toast.LENGTH_SHORT).show();
+            if (getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE).getString("email", null) == null) {
+                Toast.makeText(this, "You must be logged in to install games", Toast.LENGTH_SHORT).show();
+            } else {
+                if (currentGame != null) {
+                    boolean isInstalled = currentGame.isInstalled();
+                    currentGame.setInstalled(!isInstalled);
+                    cartManager.saveCart(List.of(currentGame));
+                    installButton.setText(currentGame.isInstalled() ? R.string.uninstall : R.string.install);
+                    Toast.makeText(this, currentGame.isInstalled() ? R.string.installed : R.string.uninstalled, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -112,7 +116,7 @@ public class InstallGameActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         boolean installed = dataSnapshot.exists() && dataSnapshot.child("installed").getValue(Boolean.class);
-                        installButton.setText(installed ? "Uninstall" : "Install");
+                        installButton.setText(installed ? R.string.uninstall : R.string.install);
                         currentGame.setInstalled(installed);
                     }
 
@@ -191,7 +195,7 @@ public class InstallGameActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     boolean installed = dataSnapshot.exists() && dataSnapshot.child("installed").getValue(Boolean.class);
-                    installButton.setText(installed ? "Uninstall" : "Install");
+                    installButton.setText(installed ? R.string.uninstall : R.string.install);
                     currentGame.setInstalled(installed);
                     game.setInstalled(installed);
                 }
