@@ -118,13 +118,14 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         TextView email = view.findViewById(R.id.emailProfileTextView);
         TextView username = view.findViewById(R.id.usrTextView);
         TextView signOut = view.findViewById(R.id.signOutTextView);
+        TextView themeLabel = view.findViewById(R.id.changeColorTextView);
         signOut.setPaintFlags(signOut.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         Button btnToggleTheme = view.findViewById(R.id.toggleThemeButton);
 
         SharedPreferences themePrefs = requireActivity().getSharedPreferences("ThemePrefs", MODE_PRIVATE);
         boolean isDarkMode = themePrefs.getBoolean("isDarkMode", false);
 
-        btnToggleTheme.setText(isDarkMode ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro");
+        themeLabel.setText(isDarkMode ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro");
 
         btnToggleTheme.setOnClickListener(v -> {
             boolean newThemeState = !isDarkMode;
@@ -138,7 +139,7 @@ public class ProfileSheet extends BottomSheetDialogFragment {
             );
 
             // Cambiar el texto del botón
-            btnToggleTheme.setText(newThemeState ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro");
+            themeLabel.setText(newThemeState ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro");
         });
 
         signOut.setOnClickListener(v -> {
