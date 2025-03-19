@@ -45,4 +45,10 @@
     <string name="paid">Paid</string>
     <string name="multiplayer_games">Multiplayer</string>
     <string name="no_rating_beta_game">No rating (Beta Game)</string>
+    <string name="install">Install</string>
+    <string name="uninstall">Uninstall</string>
+    <string name="installed">Game installed</string>
+    <string name="uninstalled">Game uninstalled</string>
+    <string name="not_installed">Not installed</string>
+    <string name="http" translatable="false">http://192.168.1.37:5000</string>
 </resources>

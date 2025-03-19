@@ -6,7 +6,7 @@
     <string name="notifications">Recibir Notificaciones</string>
     <string name="logout">Cerrar Sesión</string>
     <string name="login">Iniciar Sesión</string>
-    <string name="username">Nombre de usuario</string>
+    <string name="username">Usuario</string>
     <string name="email">Correo</string>
     <string name="email_hint">example@gmail.com</string>
     <string name="password">Contraseña</string>
@@ -45,4 +45,10 @@
     <string name="offline_games">Sin Internet</string>
     <string name="paid">De Pago</string>
     <string name="multiplayer_games">Multijugador</string>
+    <string name="install">Instalar</string>
+    <string name="uninstall">Desinstalar</string>
+    <string name="no_rating_beta_game">Sin estrellas (Beta Game)</string>
+    <string name="installed">Juego instalado</string>
+    <string name="uninstalled">Juego desinstalado</string>
+    <string name="not_installed">No instalado</string>
 </resources>
