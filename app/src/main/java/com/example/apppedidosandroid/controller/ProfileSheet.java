@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -139,13 +140,22 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         signOut.setOnClickListener(v -> {
             showCustomDialog(view);
         });
-        Button btnToggleTheme = view.findViewById(R.id.toggleThemeButton);
+        ToggleButton btnToggleTheme = view.findViewById(R.id.toggleThemeButton);
+        ToggleButton btnToggleNotif = view.findViewById(R.id.toggleButton);
 
         SharedPreferences themePrefs = requireActivity().getSharedPreferences("ThemePrefs", MODE_PRIVATE);
         boolean isDarkMode = themePrefs.getBoolean("isDarkMode", false);
-
+        boolean isNotified = themePrefs.getBoolean("isNotified", false);
+        btnToggleTheme.setChecked(isDarkMode);
+        btnToggleNotif.setChecked(isNotified);
         themeLabel.setText(isDarkMode ? R.string.light : R.string.dark);
-
+        btnToggleNotif.setOnClickListener(v -> {
+            boolean newNotifState = !isNotified;
+            SharedPreferences.Editor editor = themePrefs.edit();
+            editor.putBoolean("isNotified", newNotifState);
+            editor.apply();
+            btnToggleNotif.setChecked(newNotifState);
+        });
         btnToggleTheme.setOnClickListener(v -> {
             boolean newThemeState = !isDarkMode;
             SharedPreferences.Editor editor = themePrefs.edit();

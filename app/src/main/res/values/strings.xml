@@ -50,7 +50,7 @@
     <string name="installed">Game installed</string>
     <string name="uninstalled">Game uninstalled</string>
     <string name="not_installed">Not installed</string>
-    <string name="http" translatable="false">http://192.168.1.37:5000</string>
+    <string name="http" translatable="false">http://52.47.208.71:5000</string>
     <string name="load">Working for you to have the best experience</string>
     <string name="Warning">¡Warning!</string>
     <string name="logOutConfirmation">Are you sure you want to log out?</string>
