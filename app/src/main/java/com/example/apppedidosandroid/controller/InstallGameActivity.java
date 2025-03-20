@@ -222,7 +222,7 @@ public class InstallGameActivity extends AppCompatActivity {
     void response(int responseCode, String responseMessage) {
         Log.e("API_ERROR", "Response code: " + responseCode);
         Log.e("API_ERROR", "Response message: " + responseMessage);
-        Toast.makeText(InstallGameActivity.this, "No se encontraron juegos", Toast.LENGTH_SHORT).show();
+        Toast.makeText(InstallGameActivity.this, "Games not found", Toast.LENGTH_SHORT).show();
         progressBarContainer.setVisibility(View.GONE);
     }
 }
