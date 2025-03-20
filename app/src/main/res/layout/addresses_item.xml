@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp"
+    android:background="@drawable/rounded_background"
+    android:backgroundTint="@color/gray"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="15dp"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/streetTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/street"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/geist_semi_bold"
+                android:text="@string/full_name_hint"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h4" />
+
+            <TextView
+                android:id="@+id/phoneTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/geist_semi_bold"
+                android:text="@android:string/emptyPhoneNumber"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h4" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/cityProvincetextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/geist_medium"
+                android:text="@string/city"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h4" />
+
+            <TextView
+                android:id="@+id/postalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/postal_code"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h4" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <ImageView
+            android:id="@+id/addressImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="10"
+            app:srcCompat="@drawable/map_location_dot_solid" />
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="10"
+            android:backgroundTint="@color/white_90"
+            android:text="@string/edit"
+            android:textColor="@color/black"
+            android:textSize="@dimen/h4" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/geist_bold"
+            android:gravity="center_vertical"
+            android:text="@string/profile"
+            android:textColor="@color/black"
+            android:textSize="@dimen/h2" />
+
+        <ImageButton
+            android:id="@+id/closeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/circle_xmark_solid" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/photoLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="92dp"
+                android:layout_height="92dp"
+                android:layout_marginStart="15dp"
+                app:srcCompat="@drawable/circle_user"
+                tools:srcCompat="@drawable/circle_user" />
+
+            <ImageView
+                android:id="@+id/overlayImageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="bottom|end"
+                android:src="@drawable/pen_to_square_solid" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/usrTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/geist_bold"
+                android:hint="@string/username"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h2" />
+            <TextView
+                android:id="@+id/emailProfileTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/geist_medium"
+                android:text="@string/email_hint"
+                android:textSize="@dimen/h4" />
+
+            <LinearLayout
+                android:id="@+id/directionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/directionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/geist_medium"
+                    android:gravity="center"
+                    android:text="@string/my_addresses"
+                    android:textSize="@dimen/h4" />
+
+                <ImageButton
+                    android:id="@+id/directionImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/chevron_right_solid" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/suscribe_to_notifications"
+            android:textSize="@dimen/h3" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="58dp"
+            android:layout_height="45dp"
+            android:background="@drawable/toggle_button_background"
+            android:textOff=""
+            android:textOn="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/changeColorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Change Theme"
+            android:textSize="@dimen/h3" />
+
+        <ToggleButton
+            android:id="@+id/toggleThemeButton"
+            android:layout_width="58dp"
+            android:layout_height="45dp"
+            android:background="@drawable/toggle_button_background"
+            android:textOff=""
+            android:textOn="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="255dp"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/signOutTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
+        android:fontFamily="@font/geist_semi_bold"
+        android:gravity="center"
+        android:text="@string/logout"
+        android:textColor="@color/black"
+        android:textSize="@dimen/h3" />
+
+</LinearLayout>

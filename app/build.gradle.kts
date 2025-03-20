@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -32,7 +33,18 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.firebase.database)
+    implementation (libs.mysql.connector.java)
+    implementation (libs.com.github.bumptech.glide.glide)
+    implementation(libs.swiperefreshlayout)
+    annotationProcessor (libs.compiler)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.squareup.logging.interceptor)
+    implementation(libs.glide)
+    implementation(libs.google.firebase.auth)
+    annotationProcessor(libs.compiler)
+    implementation(libs.play.services.auth)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
