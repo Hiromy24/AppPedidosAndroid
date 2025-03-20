@@ -2,11 +2,15 @@ package com.example.apppedidosandroid.controller;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,6 +33,8 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.apppedidosandroid.ApiService;
 import com.example.apppedidosandroid.R;
 import com.example.apppedidosandroid.view.adapters.PopularItemAdapter;
@@ -107,6 +113,33 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        View actionView = getLayoutInflater().inflate(R.layout.menu_profile_image, null);
+        profileItem.setActionView(actionView);
+
+        ImageView profileImageView = actionView.findViewById(R.id.profileImageView);
+
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
+        String email1 = preferences.getString("email", "");
+        String photoUrl = preferences.getString("photoUrlBit_" + email1, "");
+        if (photoUrl.isEmpty()) {
+            photoUrl = preferences.getString("photoUrl_" + email1, "");
+            if (!photoUrl.isEmpty()) {
+                Glide.with(this)
+                        .load(photoUrl)
+                        .transform(new CircleCrop())
+                        .into(profileImageView);
+            } else {
+                profileImageView.setImageResource(R.drawable.circle_user);
+            }
+        } else {
+            Glide.with(this)
+                    .load(base64ToBitmap(photoUrl))
+                    .transform(new CircleCrop())
+                    .into(profileImageView);
+        }
+
+        profileImageView.setOnClickListener(v -> showProfileSheet());
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -396,8 +429,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showProfileSheet() {
-        SharedPreferences preferences;
-        preferences = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
         if (preferences.getString("email", null) != null) {
             ProfileSheet profileSheet = new ProfileSheet();
             profileSheet.show(getSupportFragmentManager(), "ProfileSheet");
@@ -405,11 +437,17 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             loginLauncher.launch(intent);
         }
+        invalidateOptionsMenu(); // Refresh the menu
     }
 
     void response(int responseCode, String responseMessage) {
         Log.e("API_ERROR", "Response code: " + responseCode);
         Log.e("API_ERROR", "Response message: " + responseMessage);
-        Toast.makeText(MainActivity.this, "No se encontraron juegos", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "Games not found", Toast.LENGTH_SHORT).show();
+    }
+
+    public Bitmap base64ToBitmap(String encodedString) {
+        byte[] decodedBytes = Base64.decode(encodedString, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }

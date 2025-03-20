@@ -52,4 +52,20 @@
     <string name="uninstalled">Juego desinstalado</string>
     <string name="not_installed">No instalado</string>
     <string name="load">Trabajando para que tengas la mejor experiencia</string>
+    <string name="Warning">¡Advertencia!</string>
+    <string name="logOutConfirmation">¿Estás seguro de que deseas cerrar sesión?</string>
+    <string name="delete_address">Eliminar dirección</string>
+    <string name="question_address">¿Estás seguro de que deseas eliminar esta dirección?</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm_exit">Confirmar salida</string>
+    <string name="exit_or_continue">¿Quieres salir o continuar editando?</string>
+    <string name="exit">Salir</string>
+    <string name="editing">Continuar editando</string>
+    <string name="confirm_save">Confirmar guardar</string>
+    <string name="save_or_continue">¿Quieres guardar esta dirección o continuar editando?</string>
+    <string name="light">Cambiar a Modo Claro</string>
+    <string name="dark">Cambiar a Modo Oscuro</string>
+    <string name="register_successful">Registro exitoso</string>
+    <string name="sign_in_with_new_account">Por favor, inicia sesión con tu nueva cuenta</string>
+    <string name="accept">Aceptar</string>
 </resources>

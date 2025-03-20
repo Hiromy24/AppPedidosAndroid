@@ -2,9 +2,12 @@ package com.example.apppedidosandroid.controller;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,36 +66,45 @@ public class EditAddress extends AppCompatActivity {
     }
 
     private void showExitDialog() {
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Confirm Exit")
-                .setMessage("Do you really want to exit or continue editing?")
-                .setPositiveButton("Exit", (dialogInterface, which) -> finish())
-                .setNegativeButton("Continue Editing", null)
-                .create();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_exit_dialog, null);
+        builder.setView(dialogView);
 
-        dialog.setOnShowListener(dialogInterface -> {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat
-                    .getColor(this, android.R.color.black));
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat
-                    .getColor(this, android.R.color.black));
-        });
+        TextView title = dialogView.findViewById(R.id.dialogTitle);
+        TextView message = dialogView.findViewById(R.id.dialogMessage);
+        Button acceptButton = dialogView.findViewById(R.id.aceptarDialog);
+        Button cancelButton = dialogView.findViewById(R.id.cancelarDialog);
+
+        title.setText(R.string.confirm_exit);
+        message.setText(R.string.exit_or_continue);
+
+        AlertDialog dialog = builder.create();
+
+        acceptButton.setOnClickListener(v -> finish());
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
-    private void showConfirmationDialog(String addressId) {
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Confirm Save")
-                .setMessage("Do you really want to save this address or continue editing?")
-                .setPositiveButton("Save", (dialogInterface, which) -> saveAddress(addressId))
-                .setNegativeButton("Continue Editing", null)
-                .create();
 
-        dialog.setOnShowListener(dialogInterface -> {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat
-                    .getColor(this, android.R.color.black));
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat
-                    .getColor(this, android.R.color.black));
-        });
+    private void showConfirmationDialog(String addressId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_save_dialog, null);
+        builder.setView(dialogView);
+
+        TextView title = dialogView.findViewById(R.id.dialogTitle);
+        TextView message = dialogView.findViewById(R.id.dialogMessage);
+        Button acceptButton = dialogView.findViewById(R.id.aceptarDialog);
+        Button cancelButton = dialogView.findViewById(R.id.cancelarDialog);
+
+        title.setText(R.string.confirm_save);
+        message.setText(R.string.save_or_continue);
+
+        AlertDialog dialog = builder.create();
+
+        acceptButton.setOnClickListener(v -> saveAddress(addressId));
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }

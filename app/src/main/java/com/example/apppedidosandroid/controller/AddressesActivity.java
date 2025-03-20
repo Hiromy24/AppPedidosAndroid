@@ -3,8 +3,11 @@ package com.example.apppedidosandroid.controller;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -89,19 +92,27 @@ public class AddressesActivity extends AppCompatActivity {
     }
 
     private void showDeleteConfirmationDialog(Address address) {
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Delete Address")
-                .setMessage("Are you sure you want to delete this address?")
-                .setPositiveButton("Delete", (dialogInterface, which) -> deleteAddress(address))
-                .setNegativeButton("Cancel", null)
-                .create();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_delete_dialog, null);
+        builder.setView(dialogView);
 
-        dialog.setOnShowListener(dialogInterface -> {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat
-                    .getColor(this, android.R.color.holo_red_dark));
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat
-                    .getColor(this, android.R.color.black));
+        TextView title = dialogView.findViewById(R.id.dialogTitle);
+        TextView message = dialogView.findViewById(R.id.dialogMessage);
+        Button acceptButton = dialogView.findViewById(R.id.aceptarDialog);
+        Button cancelButton = dialogView.findViewById(R.id.cancelarDialog);
+
+        title.setText(R.string.delete_address);
+        message.setText(R.string.question_address);
+
+        AlertDialog dialog = builder.create();
+
+        acceptButton.setOnClickListener(v -> {
+            deleteAddress(address);
+            dialog.dismiss();
         });
+
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }

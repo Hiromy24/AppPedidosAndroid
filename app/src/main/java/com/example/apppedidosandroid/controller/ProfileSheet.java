@@ -144,7 +144,7 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         SharedPreferences themePrefs = requireActivity().getSharedPreferences("ThemePrefs", MODE_PRIVATE);
         boolean isDarkMode = themePrefs.getBoolean("isDarkMode", false);
 
-        themeLabel.setText(isDarkMode ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro");
+        themeLabel.setText(isDarkMode ? R.string.light : R.string.dark);
 
         btnToggleTheme.setOnClickListener(v -> {
             boolean newThemeState = !isDarkMode;
@@ -158,7 +158,7 @@ public class ProfileSheet extends BottomSheetDialogFragment {
             );
 
             // Cambiar el texto del botón
-            themeLabel.setText(newThemeState ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro");
+            themeLabel.setText(newThemeState ? R.string.light : R.string.dark);
         });
         email.setText(preferences.getString("email", ""));
 
@@ -224,21 +224,23 @@ public class ProfileSheet extends BottomSheetDialogFragment {
         TextView title = dialogView.findViewById(R.id.dialogTitle);
         TextView message = dialogView.findViewById(R.id.dialogMessage);
         Button button = dialogView.findViewById(R.id.aceptarDialog);
+        Button button2 = dialogView.findViewById(R.id.cancelarDialog);
 
         title.setText(R.string.Warning);
         message.setText(R.string.logOutConfirmation);
 
         AlertDialog alertDialog = builder.create();
 
-        // TODO: CERRAR SESION
         button.setOnClickListener(v -> {
-            SharedPreferences prefs = requireActivity().getSharedPreferences(
-                    getString(R.string.prefs_file), MODE_PRIVATE);
+            SharedPreferences prefs = requireActivity().getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE);
             prefs.edit().putString("email", null).apply();
             prefs.edit().putString("username", "").apply();
             dismiss();
             alertDialog.dismiss();
+            requireActivity().invalidateOptionsMenu(); // Refresh the menu
         });
+
+        button2.setOnClickListener(v -> alertDialog.dismiss());
 
         alertDialog.show();
     }

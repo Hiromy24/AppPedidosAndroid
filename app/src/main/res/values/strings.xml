@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppPedidosAndroid</string>
+    <string name="app_name">LootBox Store</string>
     <string name="prefs_file">com.example.apppedidosandroid.PREFERENCE_FILE_KEY</string>
     <string name="profile">Profile</string>
     <string name="notifications">Receive notifications</string>
@@ -54,4 +54,18 @@
     <string name="load">Working for you to have the best experience</string>
     <string name="Warning">¡Warning!</string>
     <string name="logOutConfirmation">Are you sure you want to log out?</string>
+    <string name="delete_address">Delete address</string>
+    <string name="question_address">Are you sure you want to delete this address?</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_exit">Confirm exit</string>
+    <string name="exit_or_continue">Do you want to exit or continue editing?</string>
+    <string name="exit">Exit</string>
+    <string name="editing">Continue editing</string>
+    <string name="confirm_save">Confirm save</string>
+    <string name="save_or_continue">Do you really want to save this address or continue editing?</string>
+    <string name="light">Change to Light Mode</string>
+    <string name="dark">Change to Dark Mode</string>
+    <string name="register_successful">Registration successful</string>
+    <string name="sign_in_with_new_account">Please, sign in with your new account</string>
+    <string name="accept">Accept</string>
 </resources>

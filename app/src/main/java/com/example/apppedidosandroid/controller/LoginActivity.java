@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -96,12 +98,28 @@ public class LoginActivity extends AppCompatActivity {
                     loadingProgressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Register completed", Toast.LENGTH_SHORT).show();
-                        AlertDialog dialog = new AlertDialog.Builder(this).setTitle("Register successful").setMessage("Please, sign in with your new account").setPositiveButton("Accept", (dialogInterface, which) -> dialogInterface.dismiss()).setOnDismissListener(dialogInterface -> {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        LayoutInflater inflater = getLayoutInflater();
+                        View dialogView = inflater.inflate(R.layout.custom_register_dialog, null);
+                        builder.setView(dialogView);
+
+                        TextView title = dialogView.findViewById(R.id.dialogTitle);
+                        TextView message = dialogView.findViewById(R.id.dialogMessage);
+                        Button button = dialogView.findViewById(R.id.aceptarDialog);
+
+                        title.setText(R.string.register_successful);
+                        message.setText(R.string.sign_in_with_new_account);
+
+                        AlertDialog dialog = builder.create();
+
+                        button.setOnClickListener(dialogInterface -> {
+                            dialog.dismiss();
                             Intent intent = new Intent();
                             setResult(RESULT_OK, intent);
                             finish();
-                        }).create();
-                        dialog.setOnShowListener(dialogInterface -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, android.R.color.black)));
+                        });
+
+                        dialog.setOnShowListener(dialogInterface -> button.setTextColor(ContextCompat.getColor(this, android.R.color.black)));
                         dialog.show();
                     } else {
                         Toast.makeText(this, "Error on register", Toast.LENGTH_SHORT).show();

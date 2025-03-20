@@ -41,18 +41,6 @@
         android:weightSum="2">
 
         <Button
-            android:id="@+id/aceptarDialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/square_border2"
-            android:fontFamily="@font/geist_semi_bold"
-            android:text="@string/accept"
-            android:textColor="@color/black"
-            android:textSize="@dimen/h3" />
-
-        <Button
             android:id="@+id/cancelarDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,6 +50,18 @@
             android:fontFamily="@font/geist_semi_bold"
             android:text="@string/cancel"
             android:textColor="@color/black"
+            android:textSize="@dimen/h3" />
+
+        <Button
+            android:id="@+id/aceptarDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/square_border2"
+            android:fontFamily="@font/geist_semi_bold"
+            android:text="@string/delete"
+            android:textColor="@android:color/holo_red_dark"
             android:textSize="@dimen/h3" />
     </LinearLayout>
 </LinearLayout>
